@@ -1,4 +1,8 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
+@import './modal-fix.css';
+@import './modal-animations.css';
+@import './modal-overlay.css';
+@import './modal-utilities.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -8,4 +12,767 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer base {
+    :root {
+        color-scheme: light;
+    }
+
+    button,
+    [role='button'],
+    a {
+        cursor: pointer;
+    }
+
+    button:disabled,
+    [role='button'][aria-disabled='true'] {
+        cursor: not-allowed;
+    }
+
+    body {
+        background-color: #ffffff;
+    }
+
+    .dark {
+        color-scheme: dark;
+    }
+
+    .dark body {
+        background-color: #020617;
+        color: #e2e8f0;
+    }
+
+    .dark .bg-white {
+        background-color: #0f172a;
+    }
+
+    .dark .bg-slate-50 {
+        background-color: #0b1120;
+    }
+
+    .dark .bg-slate-100 {
+        background-color: #111827;
+    }
+
+    .dark .bg-slate-200 {
+        background-color: #1f2937;
+    }
+
+    .dark .border-slate-100,
+    .dark .border-slate-200,
+    .dark .border-slate-300 {
+        border-color: #1f2937;
+    }
+
+    .dark .text-slate-900,
+    .dark .text-slate-800,
+    .dark .text-slate-700 {
+        color: #f1f5f9;
+    }
+
+    .dark .text-slate-600 {
+        color: #cbd5f5;
+    }
+
+    .dark .text-slate-500 {
+        color: #94a3b8;
+    }
+
+    .dark .text-slate-400 {
+        color: #64748b;
+    }
+
+    .dark .shadow-sm {
+        box-shadow: 0 10px 30px -20px rgba(15, 23, 42, 0.9);
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fadein {
+    animation: fadein 0.25s cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes popin {
+    0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.animate-popin {
+    animation: popin 0.32s cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.animate-fadeout {
+    animation: fadeout 0.28s cubic-bezier(.4, 0, .2, 1) forwards;
+}
+
+@keyframes popout {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.94) translateY(24px);
+    }
+}
+
+.animate-popout {
+    animation: popout 0.28s cubic-bezier(.4, 0, .2, 1) forwards;
+}
+
+/* Enhanced dropdown animations */
+@keyframes dropdown-slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+        max-height: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: translateY(-2px) scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        max-height: 300px;
+    }
+}
+
+@keyframes dropdown-slide-up {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        max-height: 300px;
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translateY(-4px) scale(0.97);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.94);
+        max-height: 0;
+    }
+}
+
+@keyframes dropdown-bounce-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.9);
+    }
+
+    60% {
+        opacity: 0.9;
+        transform: translateY(2px) scale(1.02);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes dropdown-item-fade {
+    0% {
+        opacity: 0;
+        transform: translateX(-8px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* Ultra smooth sidebar slide out animation */
+@keyframes sidebar-gentle-slide-out {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    20% {
+        transform: translateX(-5px);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+/* Smooth sidebar slide in animation */
+@keyframes sidebar-gentle-slide-in {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    80% {
+        transform: translateX(5px);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes chevron-rotate-smooth {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+.animate-dropdown-slide-down {
+    animation: dropdown-slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-dropdown-slide-up {
+    animation: dropdown-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-dropdown-bounce-in {
+    animation: dropdown-bounce-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-dropdown-item-fade {
+    animation: dropdown-item-fade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-chevron-rotate {
+    animation: chevron-rotate-smooth 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-sidebar-gentle-out {
+    animation: sidebar-gentle-slide-out 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-sidebar-gentle-in {
+    animation: sidebar-gentle-slide-in 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@layer utilities {
+    .sidebar-scroll {
+        scrollbar-width: none;
+    }
+
+    .sidebar-scroll:hover {
+        scrollbar-width: thin;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    .sidebar-scroll:hover::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .sidebar-scroll:hover::-webkit-scrollbar-thumb {
+        background-color: rgba(99, 102, 241, 0.6);
+        border-radius: 9999px;
+    }
+
+    .sidebar-scroll:hover::-webkit-scrollbar-track {
+        background-color: rgba(148, 163, 184, 0.3);
+        border-radius: 9999px;
+    }
+
+    /* Enhanced sidebar animations */
+    .sidebar-slide-enter {
+        transform: translateX(-100%);
+    }
+
+    .sidebar-slide-enter-active {
+        transform: translateX(0);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-slide-exit {
+        transform: translateX(0);
+    }
+
+    .sidebar-slide-exit-active {
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Smooth backdrop transitions */
+    .backdrop-enter {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    .backdrop-enter-active {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .backdrop-exit {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+
+    .backdrop-exit-active {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Prevent layout shift during sidebar animations */
+    .sidebar-container {
+        will-change: transform, width;
+        contain: layout style paint;
+    }
+
+    /* GPU acceleration for smoother animations */
+    .sidebar-item {
+        will-change: transform, opacity;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+
+    /* ChatGPT-like smooth sidebar animations */
+    .sidebar-slide-smooth {
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            scale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity, scale;
+    }
+
+    /* Enhanced mobile sidebar slide with smooth animation */
+    .sidebar-mobile-slide {
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        will-change: transform;
+        transform-origin: left center;
+    }
+
+    /* Ultra smooth mobile sidebar hide animation - slower and gentler */
+    .sidebar-mobile-hide {
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform;
+    }
+
+    /* Desktop sidebar width animation */
+    .sidebar-desktop-width {
+        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: width;
+    }
+
+    /* Smoother desktop width transition when opening */
+    .sidebar-desktop-width.showing {
+        transition: width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Progressive backdrop blur like ChatGPT */
+    .backdrop-progressive {
+        transition: backdrop-filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            background-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            visibility 0s linear 0.6s;
+        will-change: backdrop-filter, opacity, background-color, visibility;
+    }
+
+    .backdrop-progressive.visible {
+        transition: backdrop-filter 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            visibility 0s linear 0s;
+        transition-delay: 0s;
+    }
+
+    /* Ultra smooth backdrop hiding */
+    .backdrop-progressive.transitioning:not(.visible) {
+        transition: backdrop-filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            background-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            visibility 0s linear 0.6s;
+    }
+
+    /* Smooth content sliding with minimal transform */
+    .sidebar-content-slide {
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+    }
+
+    /* Ultra smooth content fade during sidebar hide */
+    .sidebar-container.hiding .sidebar-content-slide {
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Enhanced mobile sidebar animations */
+    @media (max-width: 1023px) {
+        .sidebar-mobile-slide {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .sidebar-mobile-hide {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Prevent flickering during animation */
+        .sidebar-container {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* Ultra smooth hiding with gentle easing */
+        .sidebar-container.hiding {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Smooth showing with slight bounce */
+        .sidebar-container.showing {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Extra smooth during active transition */
+        .sidebar-container.transitioning {
+            will-change: transform, box-shadow, width;
+        }
+
+        .sidebar-container.transitioning.hiding {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+    }
+
+    /* Staggered animation delays for menu items */
+    .delay-75 {
+        transition-delay: 75ms;
+    }
+
+    .delay-100 {
+        transition-delay: 100ms;
+    }
+
+    .delay-150 {
+        transition-delay: 150ms;
+    }
+
+    .delay-200 {
+        transition-delay: 200ms;
+    }
+
+    .delay-250 {
+        transition-delay: 250ms;
+    }
+
+    .delay-300 {
+        transition-delay: 300ms;
+    }
+
+    .delay-350 {
+        transition-delay: 350ms;
+    }
+
+    .delay-400 {
+        transition-delay: 400ms;
+    }
+
+    /* Reverse staggered delays for smooth hiding */
+    .sidebar-container.hiding .delay-75 {
+        transition-delay: 325ms;
+    }
+
+    .sidebar-container.hiding .delay-100 {
+        transition-delay: 300ms;
+    }
+
+    .sidebar-container.hiding .delay-150 {
+        transition-delay: 250ms;
+    }
+
+    .sidebar-container.hiding .delay-200 {
+        transition-delay: 200ms;
+    }
+
+    .sidebar-container.hiding .delay-250 {
+        transition-delay: 150ms;
+    }
+
+    .sidebar-container.hiding .delay-300 {
+        transition-delay: 100ms;
+    }
+
+    .sidebar-container.hiding .delay-350 {
+        transition-delay: 75ms;
+    }
+
+    .sidebar-container.hiding .delay-400 {
+        transition-delay: 0ms;
+    }
+
+    /* Smooth hover and focus states */
+    .sidebar-hover-smooth {
+        transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Ultra smooth sidebar items during hide animation */
+    .sidebar-container.hiding .sidebar-item {
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Quick and responsive sidebar items during show animation */
+    .sidebar-container.showing .sidebar-item {
+        transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Icon rotation for expanded states */
+    .icon-rotate-smooth {
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Enhanced dropdown utilities */
+    .dropdown-container {
+        will-change: transform, opacity, max-height;
+        contain: layout style paint;
+    }
+
+    .dropdown-smooth-transition {
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dropdown-bounce-transition {
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .dropdown-item-hover {
+        transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateX(0) scale(1);
+    }
+
+    .dropdown-item-hover:hover {
+        transform: translateX(2px) scale(1.02);
+        box-shadow: 0 4px 12px -2px rgba(99, 102, 241, 0.1);
+    }
+
+    .chevron-smooth {
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-origin: center;
+    }
+
+    .chevron-expanded {
+        transform: rotate(180deg);
+    }
+
+    /* Staggered animation delays for dropdown items */
+    .stagger-1 {
+        animation-delay: 0.05s;
+    }
+
+    .stagger-2 {
+        animation-delay: 0.1s;
+    }
+
+    .stagger-3 {
+        animation-delay: 0.15s;
+    }
+
+    .stagger-4 {
+        animation-delay: 0.2s;
+    }
+
+    .stagger-5 {
+        animation-delay: 0.25s;
+    }
+
+    .stagger-6 {
+        animation-delay: 0.3s;
+    }
+
+    /* Backdrop blur for dropdown overlays */
+    .dropdown-backdrop {
+        backdrop-filter: blur(2px);
+        transition: backdrop-filter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Scale and fade animations for dropdown menus */
+    .dropdown-scale-enter {
+        transform: scale(0.95) translateY(-4px);
+        opacity: 0;
+    }
+
+    .dropdown-scale-enter-active {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dropdown-scale-exit {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+
+    .dropdown-scale-exit-active {
+        transform: scale(0.96) translateY(-2px);
+        opacity: 0;
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Modal backdrop fixes */
+    .modal-backdrop {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background-color: rgba(0, 0, 0, 0.4) !important;
+        z-index: 9999 !important;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+
+    /* Ensure modal backdrop covers the entire viewport */
+    .modal-overlay-full {
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(0, 0, 0, 0.3) !important;
+        z-index: 50 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Prevent body scroll when modal is open */
+    .modal-open {
+        overflow: hidden !important;
+        height: 100vh !important;
+    }
+
+    /* Enhanced modal animations with proper backdrop */
+    .modal-backdrop-fade-in {
+        animation: modal-backdrop-fade 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .modal-backdrop-fade-out {
+        animation: modal-backdrop-fade-out 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes modal-backdrop-fade {
+        from {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+        }
+
+        to {
+            opacity: 1;
+            backdrop-filter: blur(2px);
+        }
+    }
+
+    @keyframes modal-backdrop-fade-out {
+        from {
+            opacity: 1;
+            backdrop-filter: blur(2px);
+        }
+
+        to {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+        }
+    }
+
+    /* Additional modal styling for robust full-screen coverage */
+    .modal-full-screen {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        outline: none !important;
+        box-sizing: border-box !important;
+        z-index: 9999 !important;
+    }
+
+    /* Prevent modal from being clipped by parent containers */
+    .modal-container {
+        transform: none !important;
+        position: relative !important;
+    }
+
+    /* Enhanced backdrop for better visibility */
+    .enhanced-modal-backdrop {
+        background: linear-gradient(135deg,
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.35) 100%) !important;
+        backdrop-filter: blur(3px) saturate(1.2) !important;
+        -webkit-backdrop-filter: blur(3px) saturate(1.2) !important;
+    }
+
+    /* Ensure modal works across different screen sizes */
+    @media (max-width: 640px) {
+        .modal-overlay-full {
+            padding: 16px !important;
+        }
+    }
+
+    @media (min-width: 641px) {
+        .modal-overlay-full {
+            padding: 24px !important;
+        }
+    }
 }

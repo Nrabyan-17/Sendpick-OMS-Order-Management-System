@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "705149870220",
+    "project_id": "sendpick-b92f0",
+    "storage_bucket": "sendpick-b92f0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705149870220:android:747ef8ffa25a0e39c91ba9",
+        "android_client_info": {
+          "package_name": "com.sendpick.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzx5XwiFX1d_Y7wjibjmqbNkT5GH1Yn0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

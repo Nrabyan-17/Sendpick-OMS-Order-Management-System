@@ -1,0 +1,1918 @@
+{
+	"info": {
+		"_postman_id": "012d2588-5c42-4e43-8374-66882834d847",
+		"name": "SendPick API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36344767"
+	},
+	"item": [
+		{
+			"name": "Kebutuhan Autentikasi",
+			"item": [
+				{
+					"name": "Untuk Admin",
+					"item": [
+						{
+							"name": "Login Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.environment.set(\"admin_token\", jsonData.data.token);\r",
+											"    console.log(\"✅ Admin token saved:\", jsonData.data.token);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@sendpick.com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/auth/login?email=admin@sendpick.com&password=password&type=admin",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "admin@sendpick.com"
+										},
+										{
+											"key": "password",
+											"value": "password"
+										},
+										{
+											"key": "type",
+											"value": "admin"
+										}
+									]
+								},
+								"description": "# Login Admin\n\nAutentikasi admin untuk mendapatkan access token.\n\n## Request\n\n**Method:** `POST`  \n**URL:** `{{base_url}}/auth/login`\n\n**Body:**\n\n``` json\n{\n  \"email\": \"admin@sendpick.com\",\n  \"password\": \"password\",\n  \"type\": \"admin\"\n}\n\n ```\n\n## Response Success (200)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Login successful\",\n  \"data\": {\n    \"user\": {\n      \"user_id\": \"ADM001\",\n      \"name\": \"Super Admin\",\n      \"email\": \"admin@sendpick.com\"\n    },\n    \"token\": \"1|abcdef123456...\",\n    \"token_type\": \"Bearer\",\n    \"user_type\": \"admin\",\n    \"expires_at\": \"2026-11-05 10:30:00\"\n  }\n}\n\n ```\n\n## Response Error (422)\n\n**Invalid credentials:**\n\n``` json\n{\n  \"message\": \"Kredensial yang diberikan tidak valid.\",\n  \"errors\": {\n    \"email\": [\"Kredensial yang diberikan tidak valid.\"]\n  }\n}\n\n ```\n\n## Notes\n\n- Token otomatis tersimpan di environment variable `admin_token`\n    \n- Token berlaku selama 1 tahun\n    \n- Gunakan token untuk akses endpoint yang memerlukan autentikasi"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Current User (me)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 6|plFNQ0LV2vWzqQ9X0HlJEc4E1q241SLYveZy5clIfc980f95",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/auth/saya",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"saya"
+									]
+								},
+								"description": "# Get Current User (Admin)\n\nMendapatkan informasi admin yang sedang login berdasarkan token.\n\n## Request\n\n**Method:** `GET`  \n**URL:** `{{base_url}}/auth/saya`\n\n**Authorization:** `Bearer {{admin_token}}`\n\n## Response Success (200)\n\n``` json\n{\n  \"success\": true,\n  \"data\": {\n    \"user_type\": \"admin\",\n    \"user\": {\n      \"user_id\": \"ADM001\",\n      \"name\": \"Super Admin\",\n      \"email\": \"admin@sendpick.com\",\n      \"email_verified_at\": \"2025-11-05T22:30:00.000000Z\",\n      \"created_at\": \"2025-11-05T22:30:00.000000Z\",\n      \"updated_at\": \"2025-11-05T22:30:00.000000Z\"\n    }\n  }\n}\n\n ```\n\n## Response Error (401)\n\n**Token tidak valid atau tidak ada:**\n\n``` json\n{\n  \"message\": \"Unauthenticated.\"\n}\n\n ```\n\n## Notes\n\n- Endpoint ini memerlukan authentication (Bearer Token)\n    \n- Digunakan untuk mendapatkan profile admin yang sedang login"
+							},
+							"response": []
+						},
+						{
+							"name": "Logout (Admin)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"description": "# Logout (Admin)\n\nMenghapus token dan logout admin dari sistem.\n\n## Request\n\n**Method:** `POST`  \n**URL:** `{{base_url}}/auth/logout`\n\n**Authorization:** `Bearer {{admin_token}}`\n\n## Response Success (200)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Logout successful\"\n}\n\n ```\n\n## Response Error (401)\n\n**Token tidak valid:**\n\n``` json\n{\n  \"message\": \"Unauthenticated.\"\n}\n\n ```\n\n## Notes\n\n- Token akan dihapus dari database\n    \n- Setelah logout, token tidak bisa digunakan lagi\n    \n- Untuk login kembali, gunakan endpoint `/auth/login`"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Untuk Driver",
+					"item": [
+						{
+							"name": "Login Driver",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"description": "# Login Driver\n\nAutentikasi driver (mobile app) untuk mendapatkan access token.\n\n## Request\n\n**Method:** `POST`  \n**URL:** `{{base_url}}/auth/login`\n\n**Body:**\n\n``` json\n{\n  \"email\": \"driver@sendpick.com\",\n  \"password\": \"password\",\n  \"type\": \"driver\"\n}\n\n ```\n\n## Response Success (200)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Login successful\",\n  \"data\": {\n    \"user\": {\n      \"driver_id\": \"DRV001\",\n      \"driver_name\": \"Budi Santoso\",\n      \"email\": \"driver@sendpick.com\",\n      \"phone\": \"081234567890\",\n      \"status\": \"active\",\n      \"shift\": \"pagi\"\n    },\n    \"token\": \"2|xyz789...\",\n    \"token_type\": \"Bearer\",\n    \"user_type\": \"driver\",\n    \"expires_at\": \"2026-11-05 10:30:00\"\n  }\n}\n\n ```\n\n## Notes\n\n- Token otomatis tersimpan di environment variable `driver_token`\n    \n- Digunakan oleh mobile app driver\n    \n- Driver harus memiliki status \"active\" untuk bisa login"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Current User (driver)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"description": "# Get Current User (Driver)\n\nMendapatkan informasi driver yang sedang login berdasarkan token.\n\n## Request\n\n**Method:** `GET`  \n**URL:** `{{base_url}}/auth/saya`\n\n**Authorization:** `Bearer {{driver_token}}`\n\n## Response Success (200)\n\n``` json\n{\n  \"success\": true,\n  \"data\": {\n    \"user_type\": \"driver\",\n    \"user\": {\n      \"driver_id\": \"DRV001\",\n      \"driver_name\": \"Budi Santoso\",\n      \"email\": \"driver@sendpick.com\",\n      \"phone\": \"081234567890\",\n      \"status\": \"active\",\n      \"shift\": \"pagi\",\n      \"last_lat\": null,\n      \"last_lng\": null\n    }\n  }\n}\n\n ```\n\n## Notes\n\n- Endpoint ini memerlukan authentication (Bearer Token)\n    \n- Mengembalikan informasi driver termasuk GPS terakhir"
+							},
+							"response": []
+						},
+						{
+							"name": "Logout (driver)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"description": "# Logout (Driver)\n\nMenghapus token dan logout driver dari sistem.\n\n## Request\n\n**Method:** `POST`  \n**URL:** `{{base_url}}/auth/logout`\n\n**Authorization:** `Bearer {{admin_token}}`\n\n## Response Success (200)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Logout successful\"\n}\n\n ```\n\n## Response Error (401)\n\n**Token tidak valid:**\n\n``` json\n{\n  \"message\": \"Unauthenticated.\"\n}\n\n ```\n\n## Notes\n\n- Token akan dihapus dari database\n    \n- Setelah logout, token tidak bisa digunakan lagi\n    \n- Untuk login kembali, gunakan endpoint `/auth/login`"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Error Handling",
+					"item": [
+						{
+							"name": "Login Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.environment.set(\"admin_token\", jsonData.data.token);\r",
+											"    console.log(\"✅ Admin token saved:\", jsonData.data.token);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@sendpick.com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/auth/login?email=admin@sendpick.com&password=password&type=admin",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "admin@sendpick.com"
+										},
+										{
+											"key": "password",
+											"value": "password"
+										},
+										{
+											"key": "type",
+											"value": "admin"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "# 🔐 Authentication API\n\nAPI autentikasi SendPick menggunakan **Laravel Sanctum** untuk token-based authentication.\n\n## 📌 Overview\n\nSistem mendukung dua tipe user:\n\n- **Admin** (Web Dashboard)\n    \n- **Driver** (Mobile App)\n    \n\n## 🔑 Authentication Flow\n\n1. **Login** → Mendapatkan access token\n    \n2. **Gunakan token** untuk akses endpoint yang dilindungi\n    \n3. **Logout** → Hapus token\n    \n\n## 📋 Endpoints\n\n### 1\\. Login\n\n``` markdown\nPOST /api/auth/login\n\n ```\n\nAutentikasi user dan generate access token.\n\n**Request Body:**\n\n``` json\n{\n  \"email\": \"admin@sendpick.com\",\n  \"password\": \"password\",\n  \"type\": \"admin\"\n}\n\n ```\n\n**Response Success (200):**\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Login successful\",\n  \"data\": {\n    \"user\": { ... },\n    \"token\": \"1|abc123...\",\n    \"token_type\": \"Bearer\",\n    \"user_type\": \"admin\",\n    \"expires_at\": \"2026-11-05 10:30:00\"\n  }\n}\n\n ```\n\n---\n\n### 2\\. Get Current User\n\n```\nGET /api/auth/saya\n\n ```\n\nMendapatkan informasi user yang sedang login.\n\n**Headers:**\n\n```\nAuthorization: Bearer {{admin_token}}\n\n ```\n\n**Response Success (200):**\n\n``` json\n{\n  \"success\": true,\n  \"data\": {\n    \"user_type\": \"admin\",\n    \"user\": {\n      \"user_id\": \"ADM001\",\n      \"name\": \"Super Admin\",\n      \"email\": \"admin@sendpick.com\"\n    }\n  }\n}\n\n ```\n\n---\n\n### 3\\. Logout\n\n```\nPOST /api/auth/logout\n\n ```\n\nMenghapus token dan logout user.\n\n**Headers:**\n\n```\nAuthorization: Bearer {{admin_token}}\n\n ```\n\n**Response Success (200):**\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Logout successful\"\n}\n\n ```\n\n---\n\n## 🔒 Security\n\n- ✅ Password di-hash dengan bcrypt\n    \n- ✅ Token expire dalam 1 tahun\n    \n- ✅ Token dihapus saat logout\n    \n- ✅ Multi-device support (multiple tokens)\n    \n\n## ⚠️ Error Responses\n\n### 422 - Validation Error\n\n``` json\n{\n  \"message\": \"Kredensial yang diberikan tidak valid.\",\n  \"errors\": {\n    \"email\": [\"Kredensial yang diberikan tidak valid.\"]\n  }\n}\n\n ```\n\n### 401 - Unauthorized\n\n``` json\n{\n  \"message\": \"Unauthenticated.\"\n}\n\n ```\n\n---\n\n## 🧪 Testing\n\n### Environment Variables\n\nPastikan environment \"Local Development\" sudah setup:\n\n- `base_url`: `http://localhost:8000/api`\n    \n- `admin_token`: (auto-saved setelah login)\n    \n- `driver_token`: (auto-saved setelah login)\n    \n\n### Auto-Save Token\n\nSetiap request login sudah dilengkapi script untuk auto-save token ke environment variable.\n\n---\n\n## 📚 Test Scenarios\n\n**Happy Path:**\n\n- ✅ Login admin → 200 OK\n    \n- ✅ Login driver → 200 OK\n    \n- ✅ Get user info → 200 OK\n    \n- ✅ Logout → 200 OK\n    \n\n**Error Handling:**\n\n- ✅ Email tidak terdaftar → 422\n    \n- ✅ Password salah → 422\n    \n- ✅ Tanpa field type → 422\n    \n- ✅ Type invalid → 422\n    \n- ✅ Access tanpa token → 401\n    \n- ✅ Token invalid → 401\n    \n\n---\n\n## 📞 Support\n\n**Base URL:** `http://localhost:8000/api`  \n**Version:** 1.0.0  \n**Last Updated:** November 6, 2025"
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Get All Customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should contain customers data\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.have.property('data');\r",
+									"    pm.expect(jsonData.data.data).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total customers should be 5\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.total).to.eql(5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should have pagination meta\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta).to.have.property('current_page');\r",
+									"    pm.expect(jsonData.meta).to.have.property('per_page');\r",
+									"    pm.expect(jsonData.meta).to.have.property('total');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customers (Filter & Search)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return filtered results\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    \r",
+									"    if (jsonData.data.data.length > 0) {\r",
+									"        jsonData.data.data.forEach(function(customer) {\r",
+									"            // Check status filter\r",
+									"            pm.expect(customer.status).to.eql(\"Aktif\");\r",
+									"            \r",
+									"            // Check customer_type filter\r",
+									"            pm.expect(customer.customer_type).to.eql(\"Retail\");\r",
+									"            \r",
+									"            // Check search keyword\r",
+									"            var customerName = customer.customer_name.toLowerCase();\r",
+									"            pm.expect(customerName).to.include(\"maju\");\r",
+									"        });\r",
+									"        \r",
+									"        console.log(\"✅ Found \" + jsonData.data.data.length + \" customer(s) matching criteria\");\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Results should be sorted by customer_name (asc)\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    \r",
+									"    if (jsonData.data.data.length > 1) {\r",
+									"        for (let i = 0; i < jsonData.data.data.length - 1; i++) {\r",
+									"            let current = jsonData.data.data[i].customer_name;\r",
+									"            let next = jsonData.data.data[i + 1].customer_name;\r",
+									"            pm.expect(current <= next).to.be.true;\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Pagination should work\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.per_page).to.eql(10);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customers?status=Aktif&customer_type=Retail&search=Maju&sort_by=customer_name&sort_order=asc&per_page=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Aktif"
+								},
+								{
+									"key": "customer_type",
+									"value": "Retail"
+								},
+								{
+									"key": "search",
+									"value": "Maju"
+								},
+								{
+									"key": "sort_by",
+									"value": "customer_name"
+								},
+								{
+									"key": "sort_order",
+									"value": "asc"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Detail (no relations) by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"    pm.expect(jsonData.message).to.include(\"berhasil\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Customer ID should match\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var expectedId = pm.environment.get(\"new_customer_id\");\r",
+									"    pm.expect(jsonData.data.customer_id).to.eql(expectedId);\r",
+									"    console.log(\"✅ Customer ID matched: \" + expectedId);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Customer should NOT have relations loaded\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.not.have.property('job_orders');\r",
+									"    pm.expect(jsonData.data).to.not.have.property('delivery_orders');\r",
+									"    pm.expect(jsonData.data).to.not.have.property('invoices');\r",
+									"    console.log(\"✅ No relations loaded (as expected)\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Customer data should be complete\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.have.property('customer_id');\r",
+									"    pm.expect(jsonData.data).to.have.property('customer_code');\r",
+									"    pm.expect(jsonData.data).to.have.property('customer_name');\r",
+									"    pm.expect(jsonData.data).to.have.property('customer_type');\r",
+									"    pm.expect(jsonData.data).to.have.property('status');\r",
+									"    pm.expect(jsonData.data).to.have.property('created_at');\r",
+									"    pm.expect(jsonData.data).to.have.property('updated_at');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Customer name should be PT. Teknologi Nusantara\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.customer_name).to.eql(\"PT. Teknologi Nusantara\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customers/CUST0006",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customers",
+								"CUST0006"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Detail (with relations) by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"    pm.expect(jsonData.message).to.include(\"berhasil dibuat\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Customer ID should be auto-generated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.customer_id).to.match(/^CUST\\d{4}$/);\r",
+									"    console.log(\"✅ Generated ID: \" + jsonData.data.customer_id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Save customer_id to environment\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"new_customer_id\", jsonData.data.customer_id);\r",
+									"    console.log(\"✅ Saved to environment: new_customer_id = \" + jsonData.data.customer_id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Customer data should match request\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.customer_name).to.eql(\"PT. Teknologi Nusantara\");\r",
+									"    pm.expect(jsonData.data.customer_type).to.eql(\"Corporate\");\r",
+									"    pm.expect(jsonData.data.customer_code).to.eql(\"CUST-006\");\r",
+									"    pm.expect(jsonData.data.contact_name).to.eql(\"Rudi Hermawan\");\r",
+									"    pm.expect(jsonData.data.phone).to.eql(\"081234567895\");\r",
+									"    pm.expect(jsonData.data.email).to.eql(\"rudi@teknologi.com\");\r",
+									"    pm.expect(jsonData.data.status).to.eql(\"Aktif\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should contain timestamps\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.have.property('created_at');\r",
+									"    pm.expect(jsonData.data).to.have.property('updated_at');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customer_code\": \"CUST-006\",\r\n  \"customer_name\": \"PT. Teknologi Nusantara\",\r\n  \"customer_type\": \"Corporate\",\r\n  \"contact_name\": \"Rudi Hermawan\",\r\n  \"phone\": \"081234567895\",\r\n  \"email\": \"rudi@teknologi.com\",\r\n  \"address\": \"Jl. Sudirman No. 999, Jakarta Pusat\",\r\n  \"status\": \"Aktif\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer (success)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer (conflict)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized Access",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"    console.log(\"✅ Access blocked (no token provided)\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should show unauthenticated message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.include(\"Unauthenticated\");\r",
+									"    console.log(\"✅ Error message: \" + jsonData.message);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should not contain customer data\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.be.undefined;\r",
+									"    console.log(\"✅ No data leaked (security OK)\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Security check passed\", function () {\r",
+									"    pm.expect(pm.response.code).to.not.eql(200);\r",
+									"    console.log(\"✅ API is properly secured with authentication\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validation Error",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Not Found (404)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD Operations untuk Customer/Pelanggan"
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get All Admins",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be successful\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"    pm.expect(jsonData.message).to.include(\"berhasil\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return created admin data\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.be.an('object');\r",
+									"    pm.expect(jsonData.data).to.have.property('admin_id');\r",
+									"    pm.expect(jsonData.data.email).to.eql('admintest@sendpick.com');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Save admin_id to environment\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"new_admin_id\", jsonData.data.admin_id);\r",
+									"    console.log(\"✅ New admin ID saved: \" + jsonData.data.admin_id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Password should not be in response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.not.have.property('password');\r",
+									"    console.log(\"✅ Password not exposed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Display created admin info\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(\"📝 Admin Created:\");\r",
+									"    console.log(\"   ID: \" + jsonData.data.admin_id);\r",
+									"    console.log(\"   Name: \" + jsonData.data.full_name);\r",
+									"    console.log(\"   Email: \" + jsonData.data.email);\r",
+									"    console.log(\"   Role: \" + jsonData.data.role);\r",
+									"}); "
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"full_name\": \"Admin Test\",\r\n  \"email\": \"admintest@sendpick.com\",\r\n  \"password\": \"password123\",\r\n  \"password_confirmation\": \"password123\",\r\n  \"role\": \"Admin\",\r\n  \"phone\": \"081234567891\",\r\n  \"status\": \"Aktif\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/admins",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Roles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Not Found",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Unauthorized Access",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Driver",
+			"item": [
+				{
+					"name": "Get All Drivers",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Driver Detail (ID)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Drivers (Filter & Search)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Driver",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Driver",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Driver",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Driver",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/drivers/available",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"drivers",
+								"available"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get my profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/profile",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my profile",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle",
+			"item": [
+				{
+					"name": "Get All Vehicles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicles By ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/vehicles/available",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"vehicles",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Maintenance",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle Type",
+			"item": [
+				{
+					"name": "Get All Vehicle Type",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicle Type by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle Type",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle Type",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vehicle Type",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Vehicles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Job Orders",
+			"item": [
+				{
+					"name": "Get All Job Orders",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get job Orders By ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Job Orders",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Job Orders",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Job Orders",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Test Assign Driver & Vehicle",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Assignment",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manifest",
+			"item": [
+				{
+					"name": "Get All Manifest",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Manifest By ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Manifest",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Manifest",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"In Transit 3\",\r\n    \"planned_arrival\": \"2025-11-09 22:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/manifests/MAN-20251109-008",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"manifests",
+								"MAN-20251109-008"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Manifest",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add Job Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/manifests//job-orders",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"manifests",
+								"",
+								"job-orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Job Order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Available Job Order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/manifests/available-job-orders",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"manifests",
+								"available-job-orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delivery Order",
+			"item": [
+				{
+					"name": "Get All Delivery Order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Delivery Order By ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Delivery Order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Delivery Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"In Transit 3\",\r\n    \"planned_arrival\": \"2025-11-09 22:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/manifests/MAN-20251109-008",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"manifests",
+								"MAN-20251109-008"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Delivery Order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Delivery Order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Delivery Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/manifests/available-job-orders",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"manifests",
+								"available-job-orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Get All Invoice",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invoice By ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Invoice",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Invoice",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"In Transit 3\",\r\n    \"planned_arrival\": \"2025-11-09 22:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/manifests/MAN-20251109-008",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"manifests",
+								"MAN-20251109-008"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Invoice",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Sources",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Record Payment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/manifests/available-job-orders",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"manifests",
+								"available-job-orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get Dashboard",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "Sales Report",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Financial Report",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Operational Report",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Analytics",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Sales Export Report",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Financial Export Report",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Operational Export Report",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Analytics Export Report",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tracking",
+			"item": [
+				{
+					"name": "Get Current Location",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tracking History",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Live Tracking",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "Get All Roles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Roles By ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Roles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Roles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Roles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Roles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stats",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Driver App",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Driver Status",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Jobs",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Jobs by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Job Status",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Upload PoD",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Scan QR Code",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Location Updates",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Job History",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get History Stats",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
