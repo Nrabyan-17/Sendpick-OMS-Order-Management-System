@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('user'); // kolom role, default user
+            $table->string('phone')->nullable(); // Nomor telepon
+            $table->boolean('is_active')->default(true); // Status aktif user
+            $table->timestamp('last_login_at')->nullable(); // Tracking login terakhir
             $table->rememberToken();
             $table->timestamps();
         });
