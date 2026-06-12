@@ -25,7 +25,7 @@ const LiveTrackingMap = () => {
 
     return (
         // PENTING: Pastikan div pembungkus punya tinggi (height)
-        <div style={{ height: "150%", width: "150%", borderRadius: "12px", overflow: "hidden", border: "1px solid #ddd" }}>
+        <div style={{ height: "100%", width: "100%", borderRadius: "12px", overflow: "hidden" }}>
 
             <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: "100%", width: "100%" }}>
 
