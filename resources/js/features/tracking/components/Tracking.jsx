@@ -327,7 +327,7 @@ export default function TrackingContent() {
     }, [searchTerm, statusFilter]);
 
     return (
-        <div className='flex flex-col gap-8'>
+        <div className='relative z-0 flex flex-col gap-8'>
             {/* ─── Hero Header ─── */}
             <header className='relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 px-8 py-8 shadow-lg'>
                 {/* Decorative bg circles */}
@@ -410,7 +410,7 @@ export default function TrackingContent() {
             </section>
 
             {/* ─── Bottom 3-Column Grid ─── */}
-            <section className='grid grid-cols-1 items-start gap-6 lg:grid-cols-3'>
+            <section className='relative z-0 grid grid-cols-1 items-start gap-6 lg:grid-cols-3'>
                 {/* Column 1: Active Deliveries */}
                 <div className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-1'>
                     <div className='flex items-center gap-2 mb-4'>
