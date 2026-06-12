@@ -1381,10 +1381,10 @@ function Sidebar({ activeView, onNavigate, isOpen, onToggle, isTransitioning }) 
     };
 
     const motionStyle = (maxWidth = '999px', delay = 0) => ({
-        transition: `max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1) ${delay + 50}ms, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        transition: `max-width 0.5s cubic-bezier(0.32, 0.72, 0, 1) ${delay}ms, opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1) ${delay + 50}ms, transform 0.5s cubic-bezier(0.32, 0.72, 0, 1) ${delay}ms`,
         maxWidth: collapsed ? '0px' : maxWidth,
         opacity: collapsed ? 0 : 1,
-        transform: collapsed ? 'translateX(-12px) scale(0.95)' : 'translateX(0) scale(1)',
+        transform: collapsed ? 'translateX(-8px) scale(0.97)' : 'translateX(0) scale(1)',
         transformOrigin: 'left center',
         willChange: 'max-width, opacity, transform',
     });
@@ -1645,7 +1645,7 @@ function DashboardLayout() {
         setSidebarTransitioning(true);
         const timer = setTimeout(() => {
             setSidebarTransitioning(false);
-        }, isSidebarOpen ? 400 : 600); // Match animation durations
+        }, 500); // Unified 500ms to match CSS
 
         return () => clearTimeout(timer);
     }, [isSidebarOpen]);

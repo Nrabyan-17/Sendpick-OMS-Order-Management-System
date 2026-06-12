@@ -1,4 +1,4 @@
-﻿@import 'tailwindcss';
+@import 'tailwindcss';
 @import './modal-fix.css';
 @import './modal-animations.css';
 @import './modal-overlay.css';
@@ -368,12 +368,11 @@
     /* Prevent layout shift during sidebar animations */
     .sidebar-container {
         will-change: transform, width;
-        contain: layout style paint;
     }
 
     /* GPU acceleration for smoother animations */
     .sidebar-item {
-        will-change: transform, opacity;
+        will-change: auto;
         transform: translateZ(0);
         backface-visibility: hidden;
     }
@@ -388,26 +387,28 @@
 
     /* Enhanced mobile sidebar slide with smooth animation */
     .sidebar-mobile-slide {
-        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         will-change: transform;
         transform-origin: left center;
     }
 
-    /* Ultra smooth mobile sidebar hide animation - slower and gentler */
+    /* Ultra smooth mobile sidebar hide animation */
     .sidebar-mobile-hide {
-        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         will-change: transform;
     }
 
-    /* Desktop sidebar width animation */
+    /* Desktop sidebar width animation — unified 500ms spring */
     .sidebar-desktop-width {
-        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         will-change: width;
     }
 
-    /* Smoother desktop width transition when opening */
+    /* Same timing for opening to keep symmetry */
     .sidebar-desktop-width.showing {
-        transition: width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     /* Progressive backdrop blur like ChatGPT */
@@ -435,27 +436,29 @@
             visibility 0s linear 0.6s;
     }
 
-    /* Smooth content sliding with minimal transform */
+    /* Smooth content sliding — matches sidebar width duration */
     .sidebar-content-slide {
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-            opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         will-change: transform, opacity;
     }
 
-    /* Ultra smooth content fade during sidebar hide */
+    /* Content fade during sidebar hide — same curve, no jarring speed diff */
     .sidebar-container.hiding .sidebar-content-slide {
-        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-            opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
-    /* Enhanced mobile sidebar animations */
+    /* Enhanced mobile sidebar animations — unified curve */
     @media (max-width: 1023px) {
         .sidebar-mobile-slide {
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
 
         .sidebar-mobile-hide {
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
 
         /* Prevent flickering during animation */
@@ -466,27 +469,26 @@
             -webkit-transform: translateZ(0);
         }
 
-        /* Ultra smooth hiding with gentle easing */
+        /* Hiding — same unified 500ms */
         .sidebar-container.hiding {
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+                box-shadow 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
 
-        /* Smooth showing with slight bounce */
+        /* Showing — same unified 500ms */
         .sidebar-container.showing {
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-                box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+                box-shadow 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
 
-        /* Extra smooth during active transition */
         .sidebar-container.transitioning {
             will-change: transform, box-shadow, width;
         }
 
         .sidebar-container.transitioning.hiding {
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+                box-shadow 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+                width 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
     }
 
@@ -561,14 +563,14 @@
         transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Ultra smooth sidebar items during hide animation */
+    /* Sidebar items during hide animation — matches sidebar */
     .sidebar-container.hiding .sidebar-item {
-        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
-    /* Quick and responsive sidebar items during show animation */
+    /* Sidebar items during show animation — matches sidebar */
     .sidebar-container.showing .sidebar-item {
-        transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     /* Icon rotation for expanded states */
