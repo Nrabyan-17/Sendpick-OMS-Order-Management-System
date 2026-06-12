@@ -1184,8 +1184,8 @@ const ThemeIndicator = () => {
         setIsOpen(false);
     };
 
-    const menuClassName = [
-        'absolute right-0 mt-3 w-44 rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg transition-all duration-150 ease-out origin-top-right',
+    const wrapperClassName = [
+        'absolute right-0 top-full pt-3 w-44 z-50 transition-all duration-150 ease-out origin-top-right',
         isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0',
     ].join(' ');
 
@@ -1207,27 +1207,30 @@ const ThemeIndicator = () => {
             >
                 <SelectedIcon className='h-5 w-5' />
             </button>
-            <div className={menuClassName}>
-                {options.map((option) => {
-                    const OptionIcon = option.icon;
-                    const isActive = selection === option.value;
-                    const optionClassName = [
-                        'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
-                        isActive ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-indigo-600',
-                    ].join(' ');
+            {/* Dropdown Menu Wrapper with Padding-Top to bridge the mouse hover gap */}
+            <div className={wrapperClassName}>
+                <div className='rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg'>
+                    {options.map((option) => {
+                        const OptionIcon = option.icon;
+                        const isActive = selection === option.value;
+                        const optionClassName = [
+                            'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
+                            isActive ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-indigo-600',
+                        ].join(' ');
 
-                    return (
-                        <button
-                            key={option.value}
-                            type='button'
-                            onClick={() => handleSelect(option.value)}
-                            className={optionClassName}
-                        >
-                            <OptionIcon className='h-4 w-4' />
-                            {option.label}
-                        </button>
-                    );
-                })}
+                        return (
+                            <button
+                                key={option.value}
+                                type='button'
+                                onClick={() => handleSelect(option.value)}
+                                className={optionClassName}
+                            >
+                                <OptionIcon className='h-4 w-4' />
+                                {option.label}
+                            </button>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );
@@ -1267,8 +1270,8 @@ const UserDropdown = ({ user, onNavigateProfile }) => {
         onNavigateProfile();
     };
 
-    const menuClassName = [
-        'absolute right-0 mt-3 w-48 rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg transition-all duration-150 ease-out origin-top-right z-50',
+    const wrapperClassName = [
+        'absolute right-0 top-full pt-3 w-48 z-50 transition-all duration-150 ease-out origin-top-right',
         isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0',
     ].join(' ');
 
@@ -1303,31 +1306,33 @@ const UserDropdown = ({ user, onNavigateProfile }) => {
                 <ChevronDownIcon className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
             </button>
 
-            {/* Dropdown Menu */}
-            <div className={menuClassName}>
-                {/* Profile Option */}
-                <button
-                    type='button'
-                    onClick={handleProfileClick}
-                    className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
-                >
-                    <HiUser className='h-4 w-4' />
-                    Profil Saya
-                </button>
+            {/* Dropdown Menu Wrapper with Padding-Top to bridge the mouse hover gap */}
+            <div className={wrapperClassName}>
+                <div className='rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg'>
+                    {/* Profile Option */}
+                    <button
+                        type='button'
+                        onClick={handleProfileClick}
+                        className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
+                    >
+                        <HiUser className='h-4 w-4' />
+                        Profil Saya
+                    </button>
 
-                {/* Divider */}
-                <div className='my-1 border-t border-slate-200' />
+                    {/* Divider */}
+                    <div className='my-1 border-t border-slate-200' />
 
-                {/* Logout Option */}
-                <button
-                    type='button'
-                    onClick={handleLogout}
-                    disabled={isLoggingOut}
-                    className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed'
-                >
-                    <LogoutIcon className='h-4 w-4' />
-                    {isLoggingOut ? 'Keluar...' : 'Logout'}
-                </button>
+                    {/* Logout Option */}
+                    <button
+                        type='button'
+                        onClick={handleLogout}
+                        disabled={isLoggingOut}
+                        className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed'
+                    >
+                        <LogoutIcon className='h-4 w-4' />
+                        {isLoggingOut ? 'Keluar...' : 'Logout'}
+                    </button>
+                </div>
             </div>
         </div>
     );
