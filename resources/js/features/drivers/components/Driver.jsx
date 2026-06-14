@@ -1396,7 +1396,7 @@ function Sidebar({ activeView, onNavigate, isOpen, onToggle, isTransitioning }) 
     });
 
     const asideClassName = [
-        'group/sidebar flex h-full flex-col border-r border-slate-200 bg-white sidebar-container',
+        'group/sidebar flex h-full flex-col border-r border-slate-200 bg-white sidebar-container shrink-0 transition-all duration-500 ease-in-out',
         // Mobile: fixed positioned sidebar, Desktop: relative
         'lg:relative fixed inset-y-0 left-0 z-30 lg:z-auto',
         // Width with smooth animation - ChatGPT style

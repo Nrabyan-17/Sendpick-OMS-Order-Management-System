@@ -448,14 +448,20 @@
     /* Desktop sidebar width animation — unified 500ms spring */
     .sidebar-desktop-width {
         transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-        will-change: width;
+            min-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            max-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            flex-basis 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
+        will-change: width, min-width, max-width, flex-basis;
     }
 
     /* Same timing for opening to keep symmetry */
     .sidebar-desktop-width.showing {
         transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            min-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            max-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            flex-basis 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
     }
 
     /* Progressive backdrop blur like ChatGPT */
@@ -485,17 +491,14 @@
 
     /* Smooth content sliding — matches sidebar width duration */
     .sidebar-content-slide {
-        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1),
-            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-        will-change: transform, opacity;
+        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
+        will-change: transform, opacity, width, flex-basis;
     }
 
     /* Content fade during sidebar hide — same curve, no jarring speed diff */
+    .sidebar-container.hiding ~ .sidebar-content-slide,
     .sidebar-container.hiding .sidebar-content-slide {
-        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1),
-            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
     }
 
     /* Enhanced mobile sidebar animations — unified curve */
