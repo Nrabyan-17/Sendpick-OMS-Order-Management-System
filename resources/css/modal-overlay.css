@@ -63,18 +63,16 @@
 }
 
 /* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .modal-backdrop {
-        background: linear-gradient(
-            to bottom,
-            rgba(15, 23, 42, 0.3) 0%,
-            rgba(15, 23, 42, 0.4) 50%,
-            rgba(15, 23, 42, 0.3) 100%
-        );
-    }
-    
-    .modal-content {
-        background: rgb(15, 23, 42);
-        border-color: rgb(51, 65, 85);
-    }
+.dark .modal-backdrop {
+    background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.3) 0%,
+        rgba(15, 23, 42, 0.4) 50%,
+        rgba(15, 23, 42, 0.3) 100%
+    );
+}
+
+.dark .modal-content {
+    background: rgb(15, 23, 42);
+    border-color: rgb(51, 65, 85);
 }

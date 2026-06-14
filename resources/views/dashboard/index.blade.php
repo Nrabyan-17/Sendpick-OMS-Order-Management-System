@@ -4,6 +4,21 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>SendPick OMS - Dashboard</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo_sendpick_favicon_padded.png') }}">
+    <script>
+        // Prevent theme flash before React mounts
+        try {
+            const savedTheme = localStorage.getItem('theme') || 'system';
+            const isDark = savedTheme === 'dark';
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        } catch (e) {
+            console.error('Theme initialisation failed:', e);
+        }
+    </script>
     @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
