@@ -1631,6 +1631,14 @@ function DashboardLayout() {
     const [showVehicleTypesPopup, setShowVehicleTypesPopup] = useState(false);
     const [sidebarTransitioning, setSidebarTransitioning] = useState(false);
     const { user } = useUser();
+    const scrollContainerRef = useRef(null);
+
+    // Reset scroll position to top when switching views/pages
+    useEffect(() => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = 0;
+        }
+    }, [activeView]);
 
     const activeConfig = viewConfigs[activeView] ?? viewConfigs.home;
 
@@ -1720,7 +1728,7 @@ function DashboardLayout() {
                 onToggle={setIsSidebarOpen}
                 isTransitioning={sidebarTransitioning}
             />
-            <div className="flex flex-1 flex-col overflow-y-auto sidebar-content-slide">
+            <div className="flex flex-1 flex-col overflow-y-auto sidebar-content-slide" ref={scrollContainerRef}>
                 <header className='sticky top-0 z-10 flex h-20 p-5 items-center justify-between border-b border-slate-200 bg-white px-8 shadow-sm'>
                     <div className='flex items-center gap-4 text-sm text-slate-500'>
                         <button
