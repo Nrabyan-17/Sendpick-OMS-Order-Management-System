@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 @import './modal-fix.css';
 @import './modal-animations.css';
 @import './modal-overlay.css';
@@ -33,59 +34,60 @@
     body {
         background-color: #ffffff;
     }
+}
 
-    .dark {
-        color-scheme: dark;
-    }
+/* Unlayered custom dark mode overrides to override Tailwind utilities by specificity/layer priority */
+.dark {
+    color-scheme: dark;
+}
 
-    .dark body {
-        background-color: #020617;
-        color: #e2e8f0;
-    }
+.dark body {
+    background-color: #020617;
+    color: #e2e8f0;
+}
 
-    .dark .bg-white {
-        background-color: #0f172a;
-    }
+.dark .bg-white {
+    background-color: #0f172a;
+}
 
-    .dark .bg-slate-50 {
-        background-color: #0b1120;
-    }
+.dark .bg-slate-50 {
+    background-color: #0b1120;
+}
 
-    .dark .bg-slate-100 {
-        background-color: #111827;
-    }
+.dark .bg-slate-100 {
+    background-color: #111827;
+}
 
-    .dark .bg-slate-200 {
-        background-color: #1f2937;
-    }
+.dark .bg-slate-200 {
+    background-color: #1f2937;
+}
 
-    .dark .border-slate-100,
-    .dark .border-slate-200,
-    .dark .border-slate-300 {
-        border-color: #1f2937;
-    }
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-slate-300 {
+    border-color: #1f2937;
+}
 
-    .dark .text-slate-900,
-    .dark .text-slate-800,
-    .dark .text-slate-700 {
-        color: #f1f5f9;
-    }
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+    color: #f1f5f9;
+}
 
-    .dark .text-slate-600 {
-        color: #cbd5f5;
-    }
+.dark .text-slate-600 {
+    color: #cbd5f5;
+}
 
-    .dark .text-slate-500 {
-        color: #94a3b8;
-    }
+.dark .text-slate-500 {
+    color: #94a3b8;
+}
 
-    .dark .text-slate-400 {
-        color: #64748b;
-    }
+.dark .text-slate-400 {
+    color: #64748b;
+}
 
-    .dark .shadow-sm {
-        box-shadow: 0 10px 30px -20px rgba(15, 23, 42, 0.9);
-    }
+.dark .shadow-sm {
+    box-shadow: 0 10px 30px -20px rgba(15, 23, 42, 0.9);
 }
 
 @keyframes fadein {

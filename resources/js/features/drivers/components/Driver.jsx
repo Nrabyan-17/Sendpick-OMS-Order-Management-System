@@ -43,6 +43,7 @@ import {
 } from 'react-icons/hi2';
 
 import { UserProvider, useUser } from '../../../context/UserContext';
+import { ThemeProvider, useTheme } from '../../../context/ThemeContext';
 import { logout } from '../../auth/services/authService';
 import HomeContent from '../../../pages/Home';
 import CustomerContent from '../../customers/components/Customer';
@@ -1159,7 +1160,7 @@ function DriverManagementContent() {
 
 const ThemeIndicator = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selection, setSelection] = useState('light');
+    const { theme: selection, setTheme } = useTheme();
 
     const options = useMemo(
         () => [
@@ -1180,7 +1181,7 @@ const ThemeIndicator = () => {
     };
 
     const handleSelect = (value) => {
-        setSelection(value);
+        setTheme(value);
         setIsOpen(false);
     };
 
@@ -1790,9 +1791,11 @@ function DashboardLayout() {
 
 function Dashboard() {
     return (
-        <UserProvider>
-            <DashboardLayout />
-        </UserProvider>
+        <ThemeProvider>
+            <UserProvider>
+                <DashboardLayout />
+            </UserProvider>
+        </ThemeProvider>
     );
 }
 
