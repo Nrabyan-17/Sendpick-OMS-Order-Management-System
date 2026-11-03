@@ -74,8 +74,8 @@ const CancelConfirmModal = ({
         >
             <div className="text-center py-4 px-2">
                 {/* Warning Icon - Yellow Circle with Exclamation */}
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-100 mb-6">
-                    <svg className="h-10 w-10 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-950/30 mb-6">
+                    <svg className="h-10 w-10 text-amber-500 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -110,7 +110,7 @@ const CancelConfirmModal = ({
                         }}
                         placeholder={reasonPlaceholder}
                         rows={3}
-                        className={`w-full px-4 py-3 border rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none transition ${error ? 'border-red-500 bg-red-50' : 'border-slate-300'
+                        className={`w-full px-4 py-3 border rounded-xl text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none transition ${error ? 'border-red-500 bg-red-50 dark:bg-red-950/20' : 'border-slate-300 dark:border-slate-700'
                             }`}
                         disabled={isLoading}
                     />

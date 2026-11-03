@@ -1,4 +1,4 @@
-﻿import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 const filterOptions = [
     { id: 'all', label: 'Semua' },
@@ -232,7 +232,7 @@ export default function NotificationsContent() {
     const readItems = useMemo(() => filteredItems.filter((item) => !item.unread), [filteredItems]);
 
     return (
-        <div className='flex min-h-full flex-col gap-6 bg-slate-50 p-6 lg:p-10'>
+        <div className='flex min-h-full flex-col gap-6 bg-slate-50 dark:bg-transparent p-6 lg:p-10'>
             <section className='rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-400 p-6 text-white shadow-lg'>
                 <div className='flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between'>
                     <div className='max-w-2xl'>

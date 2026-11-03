@@ -43,6 +43,7 @@ import {
 } from 'react-icons/hi2';
 
 import { UserProvider, useUser } from '../../../context/UserContext';
+import { ThemeProvider, useTheme } from '../../../context/ThemeContext';
 import { logout } from '../../auth/services/authService';
 import HomeContent from '../../../pages/Home';
 import CustomerContent from '../../customers/components/Customer';
@@ -1159,7 +1160,7 @@ function DriverManagementContent() {
 
 const ThemeIndicator = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selection, setSelection] = useState('light');
+    const { theme: selection, setTheme } = useTheme();
 
     const options = useMemo(
         () => [
@@ -1180,12 +1181,12 @@ const ThemeIndicator = () => {
     };
 
     const handleSelect = (value) => {
-        setSelection(value);
+        setTheme(value);
         setIsOpen(false);
     };
 
-    const menuClassName = [
-        'absolute right-0 mt-3 w-44 rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg transition-all duration-150 ease-out origin-top-right',
+    const wrapperClassName = [
+        'absolute right-0 top-full pt-3 w-44 z-50 transition-all duration-150 ease-out origin-top-right',
         isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0',
     ].join(' ');
 
@@ -1207,27 +1208,30 @@ const ThemeIndicator = () => {
             >
                 <SelectedIcon className='h-5 w-5' />
             </button>
-            <div className={menuClassName}>
-                {options.map((option) => {
-                    const OptionIcon = option.icon;
-                    const isActive = selection === option.value;
-                    const optionClassName = [
-                        'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
-                        isActive ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-indigo-600',
-                    ].join(' ');
+            {/* Dropdown Menu Wrapper with Padding-Top to bridge the mouse hover gap */}
+            <div className={wrapperClassName}>
+                <div className='rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg'>
+                    {options.map((option) => {
+                        const OptionIcon = option.icon;
+                        const isActive = selection === option.value;
+                        const optionClassName = [
+                            'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
+                            isActive ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-indigo-600',
+                        ].join(' ');
 
-                    return (
-                        <button
-                            key={option.value}
-                            type='button'
-                            onClick={() => handleSelect(option.value)}
-                            className={optionClassName}
-                        >
-                            <OptionIcon className='h-4 w-4' />
-                            {option.label}
-                        </button>
-                    );
-                })}
+                        return (
+                            <button
+                                key={option.value}
+                                type='button'
+                                onClick={() => handleSelect(option.value)}
+                                className={optionClassName}
+                            >
+                                <OptionIcon className='h-4 w-4' />
+                                {option.label}
+                            </button>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );
@@ -1267,8 +1271,8 @@ const UserDropdown = ({ user, onNavigateProfile }) => {
         onNavigateProfile();
     };
 
-    const menuClassName = [
-        'absolute right-0 mt-3 w-48 rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg transition-all duration-150 ease-out origin-top-right z-50',
+    const wrapperClassName = [
+        'absolute right-0 top-full pt-3 w-48 z-50 transition-all duration-150 ease-out origin-top-right',
         isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0',
     ].join(' ');
 
@@ -1303,31 +1307,33 @@ const UserDropdown = ({ user, onNavigateProfile }) => {
                 <ChevronDownIcon className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
             </button>
 
-            {/* Dropdown Menu */}
-            <div className={menuClassName}>
-                {/* Profile Option */}
-                <button
-                    type='button'
-                    onClick={handleProfileClick}
-                    className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
-                >
-                    <HiUser className='h-4 w-4' />
-                    Profil Saya
-                </button>
+            {/* Dropdown Menu Wrapper with Padding-Top to bridge the mouse hover gap */}
+            <div className={wrapperClassName}>
+                <div className='rounded-2xl border border-slate-200 bg-white p-2 text-left shadow-lg'>
+                    {/* Profile Option */}
+                    <button
+                        type='button'
+                        onClick={handleProfileClick}
+                        className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
+                    >
+                        <HiUser className='h-4 w-4' />
+                        Profil Saya
+                    </button>
 
-                {/* Divider */}
-                <div className='my-1 border-t border-slate-200' />
+                    {/* Divider */}
+                    <div className='my-1 border-t border-slate-200' />
 
-                {/* Logout Option */}
-                <button
-                    type='button'
-                    onClick={handleLogout}
-                    disabled={isLoggingOut}
-                    className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed'
-                >
-                    <LogoutIcon className='h-4 w-4' />
-                    {isLoggingOut ? 'Keluar...' : 'Logout'}
-                </button>
+                    {/* Logout Option */}
+                    <button
+                        type='button'
+                        onClick={handleLogout}
+                        disabled={isLoggingOut}
+                        className='flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed'
+                    >
+                        <LogoutIcon className='h-4 w-4' />
+                        {isLoggingOut ? 'Keluar...' : 'Logout'}
+                    </button>
+                </div>
             </div>
         </div>
     );
@@ -1381,16 +1387,16 @@ function Sidebar({ activeView, onNavigate, isOpen, onToggle, isTransitioning }) 
     };
 
     const motionStyle = (maxWidth = '999px', delay = 0) => ({
-        transition: `max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1) ${delay + 50}ms, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        transition: `max-width 0.5s cubic-bezier(0.32, 0.72, 0, 1) ${delay}ms, opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1) ${delay + 50}ms, transform 0.5s cubic-bezier(0.32, 0.72, 0, 1) ${delay}ms`,
         maxWidth: collapsed ? '0px' : maxWidth,
         opacity: collapsed ? 0 : 1,
-        transform: collapsed ? 'translateX(-12px) scale(0.95)' : 'translateX(0) scale(1)',
+        transform: collapsed ? 'translateX(-8px) scale(0.97)' : 'translateX(0) scale(1)',
         transformOrigin: 'left center',
         willChange: 'max-width, opacity, transform',
     });
 
     const asideClassName = [
-        'group/sidebar flex h-full flex-col border-r border-slate-200 bg-white sidebar-container',
+        'group/sidebar flex h-full flex-col border-r border-slate-200 bg-white sidebar-container shrink-0 transition-all duration-500 ease-in-out',
         // Mobile: fixed positioned sidebar, Desktop: relative
         'lg:relative fixed inset-y-0 left-0 z-30 lg:z-auto',
         // Width with smooth animation - ChatGPT style
@@ -1625,6 +1631,14 @@ function DashboardLayout() {
     const [showVehicleTypesPopup, setShowVehicleTypesPopup] = useState(false);
     const [sidebarTransitioning, setSidebarTransitioning] = useState(false);
     const { user } = useUser();
+    const scrollContainerRef = useRef(null);
+
+    // Reset scroll position to top when switching views/pages
+    useEffect(() => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = 0;
+        }
+    }, [activeView]);
 
     const activeConfig = viewConfigs[activeView] ?? viewConfigs.home;
 
@@ -1645,7 +1659,7 @@ function DashboardLayout() {
         setSidebarTransitioning(true);
         const timer = setTimeout(() => {
             setSidebarTransitioning(false);
-        }, isSidebarOpen ? 400 : 600); // Match animation durations
+        }, 500); // Unified 500ms to match CSS
 
         return () => clearTimeout(timer);
     }, [isSidebarOpen]);
@@ -1714,7 +1728,7 @@ function DashboardLayout() {
                 onToggle={setIsSidebarOpen}
                 isTransitioning={sidebarTransitioning}
             />
-            <div className="flex flex-1 flex-col overflow-y-auto sidebar-content-slide">
+            <div className="flex flex-1 flex-col overflow-y-auto sidebar-content-slide" ref={scrollContainerRef}>
                 <header className='sticky top-0 z-10 flex h-20 p-5 items-center justify-between border-b border-slate-200 bg-white px-8 shadow-sm'>
                     <div className='flex items-center gap-4 text-sm text-slate-500'>
                         <button
@@ -1785,9 +1799,11 @@ function DashboardLayout() {
 
 function Dashboard() {
     return (
-        <UserProvider>
-            <DashboardLayout />
-        </UserProvider>
+        <ThemeProvider>
+            <UserProvider>
+                <DashboardLayout />
+            </UserProvider>
+        </ThemeProvider>
     );
 }
 

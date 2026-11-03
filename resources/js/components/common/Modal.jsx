@@ -133,19 +133,18 @@ const Modal = ({
             {/* Modal content dengan animasi smooth */}
             <div 
                 onClick={(e) => e.stopPropagation()}
+                className="bg-white border border-slate-200 dark:border-slate-800"
                 style={{
                     position: 'relative',
                     width: '100%',
                     maxWidth: '680px',
                     maxHeight: '80vh',
                     margin: 'auto',
-                    backgroundColor: '#ffffff',
                     borderRadius: '20px',
                     boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
-                    border: '1px solid #e5e7eb',
                     zIndex: 1000000,
                     opacity: isAnimating ? 1 : 0,
                     transform: isAnimating ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
@@ -156,52 +155,34 @@ const Modal = ({
             >
                 {/* Header - SIMPLIFIED */}
                 {(title || showCloseButton) && (
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '16px 24px',
-                        borderBottom: '1px solid #e5e7eb',
-                        backgroundColor: '#f9fafb'
-                    }}>
+                    <div 
+                        className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '16px 24px',
+                        }}
+                    >
                         {title && (
-                            <h3 style={{
-                                fontSize: '18px',
-                                fontWeight: '600',
-                                color: '#1f2937',
-                                margin: 0
-                            }}>
+                            <h3 
+                                className="text-slate-900 dark:text-slate-100"
+                                style={{
+                                    fontSize: '18px',
+                                    fontWeight: '600',
+                                    margin: 0
+                                }}
+                            >
                                 {title}
                             </h3>
                         )}
                         {showCloseButton && (
                             <button
                                 onClick={onClose}
-                                onMouseEnter={(e) => {
-                                    e.target.style.backgroundColor = '#fee2e2';
-                                    e.target.style.borderColor = '#ef4444';
-                                    e.target.style.color = '#dc2626';
-                                    e.target.style.transform = 'rotate(90deg) scale(1.1)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.target.style.backgroundColor = '#ffffff';
-                                    e.target.style.borderColor = '#d1d5db';
-                                    e.target.style.color = '#6b7280';
-                                    e.target.style.transform = 'rotate(0) scale(1)';
-                                }}
+                                className="flex h-7 w-7 items-center justify-center rounded-lg border border-slate-300 bg-white text-slate-500 hover:bg-red-50 hover:border-red-500 hover:text-red-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-red-950/30 dark:hover:border-red-500 dark:hover:text-red-400 transition-all duration-200 hover:rotate-90 hover:scale-110"
                                 style={{
-                                    width: '28px',
-                                    height: '28px',
-                                    borderRadius: '8px',
-                                    border: '1px solid #d1d5db',
-                                    backgroundColor: '#ffffff',
+                                    fontSize: '14px',
                                     cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '18px',
-                                    color: '#6b7280',
-                                    transition: 'all 0.2s ease-in-out'
                                 }}
                             >
                                 ✕
@@ -211,12 +192,14 @@ const Modal = ({
                 )}
                 
                 {/* Content - SIMPLIFIED */}
-                <div style={{
-                    flex: 1,
-                    overflowY: 'auto',
-                    padding: '24px',
-                    backgroundColor: '#ffffff'
-                }}>
+                <div 
+                    className="bg-white"
+                    style={{
+                        flex: 1,
+                        overflowY: 'auto',
+                        padding: '24px',
+                    }}
+                >
                     {children}
                 </div>
             </div>

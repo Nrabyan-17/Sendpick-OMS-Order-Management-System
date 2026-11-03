@@ -730,13 +730,13 @@ const EditModal = ({
 
                                         {/* ✅ UPDATED: Support dynamic description (can be function) */}
                                         {field.description && (
-                                            <p className="mt-2 text-xs text-slate-500 bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-2 rounded-lg border border-blue-200">
+                                            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-indigo-950/25 dark:to-blue-950/25 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-900/50">
                                                 ℹ️ {typeof field.description === 'function' ? field.description(formData) : field.description}
                                             </p>
                                         )}
 
                                         {field.help && (
-                                            <p className="mt-2 text-xs text-slate-500 bg-gradient-to-r from-slate-50 to-blue-50 px-3 py-2 rounded-lg border border-slate-200">
+                                            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900/40 dark:to-blue-950/20 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">
                                                 💡 {field.help}
                                             </p>
                                         )}
@@ -746,7 +746,7 @@ const EditModal = ({
                         </div>
 
                         {/* Fixed action buttons dengan desain yang lebih menarik */}
-                        <div className={`flex justify-end gap-4 border-t border-slate-200 ${hideContentScrollbar ? 'pt-4 mt-6' : 'pt-6 mt-8'} shrink-0 bg-gradient-to-r from-slate-50 to-white px-1`}>
+                        <div className={`flex justify-end gap-4 border-t border-slate-200 dark:border-slate-800 ${hideContentScrollbar ? 'pt-4 mt-6' : 'pt-6 mt-8'} shrink-0 bg-white px-6 py-4 rounded-b-2xl`}>
                             <button
                                 type="button"
                                 onClick={onClose}

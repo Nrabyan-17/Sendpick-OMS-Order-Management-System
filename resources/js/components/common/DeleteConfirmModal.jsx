@@ -76,7 +76,7 @@ const DeleteConfirmModal = ({
         >
             <div className="text-center py-4">
                 {/* Warning Icon dengan desain yang lebih menarik */}
-                <div className="warning-container mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-red-100 to-red-200 mb-6 relative">
+                <div className="warning-container mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-red-100 to-red-200 dark:from-red-950 dark:to-red-900/50 mb-6 relative">
                     <div className="absolute inset-0 rounded-full bg-red-500/10 animate-pulse"></div>
                     <div className={`${config.iconColor} relative z-10`}>
                         {config.icon}
@@ -96,7 +96,7 @@ const DeleteConfirmModal = ({
 
                         {itemName && (
                             <div className="mx-auto max-w-xs">
-                                <div className="rounded-xl bg-gradient-to-r from-red-50 to-red-100 border-2 border-red-200 px-4 py-3">
+                                <div className="rounded-xl bg-gradient-to-r from-red-50 to-red-100 dark:from-red-950/20 dark:to-red-900/10 border-2 border-red-200 dark:border-red-900/50 px-4 py-3">
                                     <p className="text-sm font-bold text-red-900 break-words">
                                         "{itemName}"
                                     </p>
@@ -104,8 +104,8 @@ const DeleteConfirmModal = ({
                             </div>
                         )}
 
-                        <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mx-4">
-                            <p className="text-xs text-amber-800 font-medium flex items-center justify-center gap-2">
+                        <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl p-3 mx-4">
+                            <p className="text-xs text-amber-800 dark:text-amber-300 font-medium flex items-center justify-center gap-2">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
                                 </svg>
