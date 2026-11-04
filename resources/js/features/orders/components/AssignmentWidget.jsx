@@ -307,7 +307,7 @@ export default function AssignmentWidget({
     }
 
     return (
-        <section className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
+        <section className='flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
             <div className='flex items-center justify-between'>
                 <div>
                     <h2 className='text-lg font-semibold text-slate-900'>Active Assignments</h2>
@@ -328,7 +328,7 @@ export default function AssignmentWidget({
                 </div>
             )}
 
-            <div className='mt-6 space-y-3'>
+            <div className='mt-6 flex-1 space-y-3'>
                 {displayAssignments.length > 0 ? (
                     displayAssignments.map((assignment) => (
                         <AssignmentItem key={assignment.id} assignment={assignment} />
@@ -348,7 +348,7 @@ export default function AssignmentWidget({
 
             {/* Pagination Controls */}
             {totalItems > 0 && (
-                <div className='mt-6 flex items-center justify-between border-t border-slate-100 pt-4'>
+                <div className='mt-auto flex items-center justify-between border-t border-slate-100 pt-4'>
                     <p className='text-xs text-slate-400'>
                         Menampilkan {startIndex + 1}-{Math.min(endIndex, totalItems)} dari {totalItems} assignment
                     </p>

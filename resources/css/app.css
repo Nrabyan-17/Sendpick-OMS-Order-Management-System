@@ -406,6 +406,7 @@
             min-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
             max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
             flex-basis 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            padding 560ms cubic-bezier(0.22, 1, 0.36, 1),
             transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
             box-shadow 420ms ease-out;
         will-change: transform, width, box-shadow;
@@ -437,26 +438,6 @@
     .sidebar-mobile-hide {
         transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
         will-change: transform;
-    }
-
-    /* Desktop sidebar width animation — unified 500ms spring */
-    .sidebar-desktop-width {
-        transition:
-            width 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            min-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            flex-basis 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            padding 560ms cubic-bezier(0.22, 1, 0.36, 1) !important;
-    }
-
-    /* Same timing for opening to keep symmetry */
-    .sidebar-desktop-width.showing {
-        transition:
-            width 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            min-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            flex-basis 560ms cubic-bezier(0.22, 1, 0.36, 1),
-            padding 560ms cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
 
     /* Progressive backdrop blur like ChatGPT */

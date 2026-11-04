@@ -190,7 +190,7 @@ const ShipmentStatusCard = React.memo(function ShipmentStatusCard() {
         { name: 'Cancelled', value: 2, color: '#ef4444', labelClass: 'text-red-500' },
     ];
     return (
-        <section className='w-full max-w-xs rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
+        <section className='w-full rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
             <p className='text-sm text-slate-500'>Status Pengiriman</p>
             <div className='mt-6 flex flex-col items-center gap-4'>
                 <div className='h-44 w-44'>
@@ -277,7 +277,7 @@ function TransactionsCard({ activities = [], loading = false, itemsPerPage = 5 }
     }
 
     return (
-        <section className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
+        <section className='flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
             <div className='flex items-center justify-between'>
                 <p className='text-sm text-slate-500'>Perkembangan Transaksi Terbaru</p>
                 <button
@@ -287,7 +287,7 @@ function TransactionsCard({ activities = [], loading = false, itemsPerPage = 5 }
                     Lihat Semua
                 </button>
             </div>
-            <div className='mt-6 space-y-3'>
+            <div className='mt-6 flex-1 space-y-3'>
                 {currentActivities.length > 0 ? (
                     currentActivities.map((activity, idx) => (
                         <article
@@ -327,7 +327,7 @@ function TransactionsCard({ activities = [], loading = false, itemsPerPage = 5 }
 
             {/* Pagination Controls */}
             {totalItems > 0 && (
-                <div className='mt-6 flex items-center justify-between border-t border-slate-100 pt-4'>
+                <div className='mt-auto flex items-center justify-between border-t border-slate-100 pt-4'>
                     <p className='text-xs text-slate-400'>
                         Menampilkan {startIndex + 1}-{Math.min(endIndex, totalItems)} dari {totalItems} transaksi
                     </p>

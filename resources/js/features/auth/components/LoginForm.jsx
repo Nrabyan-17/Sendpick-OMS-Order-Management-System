@@ -78,6 +78,9 @@ export default function LoginForm() {
             <form className="login-form" onSubmit={handleSubmit}>
                 {/* Email Field */}
                 <div className="login-field">
+                    <label htmlFor="email" className="login-label">
+                        Email
+                    </label>
                     <input
                         id="email"
                         name="email"

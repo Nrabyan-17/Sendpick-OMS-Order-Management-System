@@ -1328,7 +1328,7 @@ const UserDropdown = ({ user, onNavigateProfile }) => {
     );
 };
 
-function Sidebar({ activeView, onNavigate, isOpen, onToggle, isTransitioning }) {
+function Sidebar({ activeView, onNavigate, isOpen, onToggle }) {
     const [expandedIds, setExpandedIds] = useState(() => {
         const ids = [];
         navigationSections.forEach((section) => {
@@ -1375,8 +1375,8 @@ function Sidebar({ activeView, onNavigate, isOpen, onToggle, isTransitioning }) 
         toggleExpand(id);
     };
 
-    const motionStyle = (maxWidth = '999px', delay = 0) => ({
-        transition: `max-width 0.5s cubic-bezier(0.32, 0.72, 0, 1) ${delay}ms, opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1) ${delay + 50}ms, transform 0.5s cubic-bezier(0.32, 0.72, 0, 1) ${delay}ms`,
+    const motionStyle = (maxWidth = '999px') => ({
+        transition: 'max-width 560ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease-out, transform 420ms cubic-bezier(0.22, 1, 0.36, 1)',
         maxWidth: collapsed ? '0px' : maxWidth,
         opacity: collapsed ? 0 : 1,
         transform: collapsed ? 'translateX(-8px) scale(0.97)' : 'translateX(0) scale(1)',
@@ -1397,9 +1397,6 @@ function Sidebar({ activeView, onNavigate, isOpen, onToggle, isTransitioning }) 
             ? 'translate-x-0 lg:translate-x-0 sidebar-mobile-slide showing'
             : '-translate-x-full lg:translate-x-0 sidebar-mobile-hide hiding',
         // Desktop width transition
-        'sidebar-desktop-width',
-        // Add transitioning class for extra smoothness
-        isTransitioning ? 'transitioning' : '',
     ].join(' ');
 
     const navPaddingClass = collapsed ? 'px-2 pb-6' : 'px-4 pb-8';
@@ -1713,7 +1710,6 @@ function DashboardLayout() {
                 onNavigate={handleSetActiveView}
                 isOpen={isSidebarOpen}
                 onToggle={setIsSidebarOpen}
-                isTransitioning={sidebarTransitioning}
             />
             <div className="dashboard-scroll flex flex-1 flex-col overflow-y-auto sidebar-content-slide" ref={scrollContainerRef}>
                 <header className='sticky top-0 z-10 flex h-20 p-5 items-center justify-between border-b border-slate-200 bg-white px-8 shadow-sm'>
@@ -1740,7 +1736,7 @@ function DashboardLayout() {
                     </div>
                 </header>
                 <main className='flex-1 bg-white'>
-                    <div className='mx-auto flex max-w-6xl flex-col gap-8 px-10 py-8'>
+                    <div className='flex w-full flex-col gap-8 px-6 py-8 lg:px-8 2xl:px-10'>
                         <div className='flex items-start justify-between'>
                             <div>
                                 <h1 className='text-2xl font-semibold text-slate-900'>{activeConfig.title}</h1>
