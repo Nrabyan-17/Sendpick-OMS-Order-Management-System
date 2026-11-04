@@ -17,7 +17,6 @@ import {
     HiReceiptRefund,
     HiChartPie,
     HiClock,
-    HiBell,
     HiChartBar,
     HiCog,
     HiBookOpen,
@@ -63,7 +62,6 @@ import GuideContent from '../../../pages/Guide';
 import ManifestContent from '../../manifests/components/Manifest';
 import DeliveryOrderContent from '../../orders/components/DeliveryOrder';
 import ProfileContent from '../../../features/auth/components/Profile';
-import NotificationsContent, { unreadNotificationsCount as dashboardUnreadNotifications } from '../../../pages/Notifications';
 import Pagination from '../../../components/common/Pagination';
 import { useDrivers } from '../hooks/useDrivers';
 import { useDriversCRUD } from '../hooks/useDriversCrud';
@@ -86,7 +84,6 @@ const navigationIcons = {
     receipt: HiReceiptRefund,
     gauge: HiChartPie,
     tracking: HiClock,
-    notifications: HiBell,
     chart: HiChartBar,
     settings: HiCog,
     book: HiBookOpen,
@@ -97,7 +94,6 @@ const navigationIcons = {
 
 const PlusIcon = ({ className = 'h-4 w-4' }) => <HiPlus className={className} />;
 const MenuIcon = ({ className = 'h-5 w-5' }) => <HiBars3 className={className} />;
-const BellIcon = ({ className = 'h-6 w-6' }) => <HiBell className={className} />;
 const ChevronDownIcon = ({ className = 'h-4 w-4' }) => <HiChevronDown className={className} />;
 const SunIcon = ({ className = 'h-5 w-5' }) => <HiSun className={className} />;
 const MoonIcon = ({ className = 'h-5 w-5' }) => <HiMoon className={className} />;
@@ -120,7 +116,6 @@ const navigationSections = [
         heading: 'Main',
         items: [
             { label: 'Home', icon: navigationIcons.home, view: 'home' },
-            { label: 'Notifikasi', icon: navigationIcons.notifications, view: 'notifications' },
         ],
     },
     {
@@ -373,12 +368,6 @@ const viewConfigs = {
         subtitle: 'Selamat datang di SendPick Order Management System',
         actionButton: null,
         getContent: () => <HomeContent />,
-    },
-    notifications: {
-        title: 'Pusat Notifikasi',
-        subtitle: 'Pantau update operasional, SLA, dan aktivitas tim terbaru',
-        actionButton: null,
-        getContent: () => <NotificationsContent />,
     },
     customers: {
         title: 'Manajemen Pelanggan',
@@ -1396,7 +1385,7 @@ function Sidebar({ activeView, onNavigate, isOpen, onToggle, isTransitioning }) 
     });
 
     const asideClassName = [
-        'group/sidebar flex h-full flex-col border-r border-slate-200 bg-white sidebar-container shrink-0 transition-all duration-500 ease-in-out',
+        'group/sidebar flex h-full flex-col border-r border-slate-200 bg-white sidebar-container shrink-0',
         // Mobile: fixed positioned sidebar, Desktop: relative
         'lg:relative fixed inset-y-0 left-0 z-30 lg:z-auto',
         // Width with smooth animation - ChatGPT style
@@ -1659,7 +1648,7 @@ function DashboardLayout() {
         setSidebarTransitioning(true);
         const timer = setTimeout(() => {
             setSidebarTransitioning(false);
-        }, 500); // Unified 500ms to match CSS
+        }, 560);
 
         return () => clearTimeout(timer);
     }, [isSidebarOpen]);
@@ -1702,8 +1691,6 @@ function DashboardLayout() {
 
     const actionButton = activeConfig.actionButton;
     const ActionIcon = actionButton?.icon;
-    const isNotificationsView = activeView === 'notifications';
-
     const handleActionClick = (e) => {
         e.preventDefault();
     };
@@ -1728,7 +1715,7 @@ function DashboardLayout() {
                 onToggle={setIsSidebarOpen}
                 isTransitioning={sidebarTransitioning}
             />
-            <div className="flex flex-1 flex-col overflow-y-auto sidebar-content-slide" ref={scrollContainerRef}>
+            <div className="dashboard-scroll flex flex-1 flex-col overflow-y-auto sidebar-content-slide" ref={scrollContainerRef}>
                 <header className='sticky top-0 z-10 flex h-20 p-5 items-center justify-between border-b border-slate-200 bg-white px-8 shadow-sm'>
                     <div className='flex items-center gap-4 text-sm text-slate-500'>
                         <button
@@ -1745,25 +1732,6 @@ function DashboardLayout() {
                     </div>
                     <div className='flex items-center gap-5'>
                         <ThemeIndicator />
-                        <button
-                            type='button'
-                            onClick={() => setActiveView('notifications')}
-                            aria-label='Notifikasi'
-                            aria-pressed={isNotificationsView}
-                            className={[
-                                'relative rounded-xl border p-2 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
-                                isNotificationsView
-                                    ? 'border-indigo-200 bg-indigo-50 text-indigo-600 shadow-sm'
-                                    : 'border-slate-200 text-slate-400 hover:border-indigo-200 hover:text-indigo-600',
-                            ].join(' ')}
-                        >
-                            <BellIcon />
-                            {dashboardUnreadNotifications > 0 ? (
-                                <span className='absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[10px] font-semibold text-white'>
-                                    {dashboardUnreadNotifications}
-                                </span>
-                            ) : null}
-                        </button>
                         {/* User Account Dropdown */}
                         <UserDropdown
                             user={user}

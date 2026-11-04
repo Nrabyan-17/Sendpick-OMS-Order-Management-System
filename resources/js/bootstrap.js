@@ -4,14 +4,14 @@ if (!window.axios) {
     window.axios = axios;
 }
 
-const baseURL = import.meta.env?.VITE_API_BASE_URL ?? 'http://127.0.0.1:8000/api';
+const baseURL = import.meta.env?.VITE_API_BASE_URL ?? '/api';
 
 window.axios.defaults.baseURL = baseURL;
 window.axios.defaults.withCredentials = true;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // Set Authorization token from localStorage if exists
-const token = localStorage.getItem('auth_token');
+const token = localStorage.getItem('authToken');
 if (token) {
     window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
@@ -22,7 +22,7 @@ window.axios.interceptors.response.use(
     (error) => {
         // If 401 Unauthorized, clear auth and redirect to login
         if (error.response?.status === 401) {
-            localStorage.removeItem('auth_token');
+            localStorage.removeItem('authToken');
             localStorage.removeItem('user');
             localStorage.removeItem('user_type');
 

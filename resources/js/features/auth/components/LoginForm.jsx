@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import axios from 'axios';
+import api from '../../../utils/api';
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -18,7 +18,7 @@ export default function LoginForm() {
 
         try {
             // Hit API Login
-            const response = await axios.post('/auth/login', {
+            const response = await api.post('/auth/login', {
                 email: dataForm.email,
                 password: dataForm.password,
                 type: 'admin' // Login sebagai admin (bukan driver)
@@ -29,7 +29,7 @@ export default function LoginForm() {
                 localStorage.removeItem('sendpick_user');
 
                 // Simpan token dan user data ke localStorage
-                localStorage.setItem('auth_token', response.data.data.token);
+                localStorage.setItem('authToken', response.data.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.data.user));
                 localStorage.setItem('user_type', response.data.data.user_type);
 

@@ -342,32 +342,19 @@
         scrollbar-width: none;
     }
 
-    .sidebar-scroll:hover {
-        scrollbar-width: thin;
-    }
-
     .sidebar-scroll::-webkit-scrollbar {
         width: 0;
         height: 0;
     }
 
-    .sidebar-scroll::-webkit-scrollbar-thumb {
-        background-color: transparent;
+    .dashboard-scroll {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
-    .sidebar-scroll:hover::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-    }
-
-    .sidebar-scroll:hover::-webkit-scrollbar-thumb {
-        background-color: rgba(99, 102, 241, 0.6);
-        border-radius: 9999px;
-    }
-
-    .sidebar-scroll:hover::-webkit-scrollbar-track {
-        background-color: rgba(148, 163, 184, 0.3);
-        border-radius: 9999px;
+    .dashboard-scroll::-webkit-scrollbar {
+        width: 0;
+        height: 0;
     }
 
     /* Enhanced sidebar animations */
@@ -414,7 +401,14 @@
 
     /* Prevent layout shift during sidebar animations */
     .sidebar-container {
-        will-change: transform, width;
+        transition:
+            width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            min-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            flex-basis 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 420ms ease-out;
+        will-change: transform, width, box-shadow;
     }
 
     /* GPU acceleration for smoother animations */
@@ -434,34 +428,35 @@
 
     /* Enhanced mobile sidebar slide with smooth animation */
     .sidebar-mobile-slide {
-        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
         will-change: transform;
         transform-origin: left center;
     }
 
     /* Ultra smooth mobile sidebar hide animation */
     .sidebar-mobile-hide {
-        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
         will-change: transform;
     }
 
     /* Desktop sidebar width animation — unified 500ms spring */
     .sidebar-desktop-width {
-        transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            min-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            max-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            flex-basis 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
-        will-change: width, min-width, max-width, flex-basis;
+        transition:
+            width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            min-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            flex-basis 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            padding 560ms cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
 
     /* Same timing for opening to keep symmetry */
     .sidebar-desktop-width.showing {
-        transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            min-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            max-width 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            flex-basis 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-            padding 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
+        transition:
+            width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            min-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            flex-basis 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            padding 560ms cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
 
     /* Progressive backdrop blur like ChatGPT */
@@ -491,24 +486,30 @@
 
     /* Smooth content sliding — matches sidebar width duration */
     .sidebar-content-slide {
-        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
-        will-change: transform, opacity, width, flex-basis;
+        transition:
+            max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 360ms ease-out !important;
+        will-change: transform, opacity, max-width;
     }
 
     /* Content fade during sidebar hide — same curve, no jarring speed diff */
     .sidebar-container.hiding ~ .sidebar-content-slide,
     .sidebar-container.hiding .sidebar-content-slide {
-        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1) !important;
+        transition:
+            max-width 560ms cubic-bezier(0.22, 1, 0.36, 1),
+            transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 360ms ease-out !important;
     }
 
     /* Enhanced mobile sidebar animations — unified curve */
     @media (max-width: 1023px) {
         .sidebar-mobile-slide {
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .sidebar-mobile-hide {
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         /* Prevent flickering during animation */
@@ -521,14 +522,14 @@
 
         /* Hiding — same unified 500ms */
         .sidebar-container.hiding {
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-                box-shadow 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 420ms ease-out;
         }
 
         /* Showing — same unified 500ms */
         .sidebar-container.showing {
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-                box-shadow 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 420ms ease-out;
         }
 
         .sidebar-container.transitioning {
@@ -536,9 +537,9 @@
         }
 
         .sidebar-container.transitioning.hiding {
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-                box-shadow 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-                width 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 420ms ease-out,
+                width 560ms cubic-bezier(0.22, 1, 0.36, 1);
         }
     }
 
@@ -615,12 +616,16 @@
 
     /* Sidebar items during hide animation — matches sidebar */
     .sidebar-container.hiding .sidebar-item {
-        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 360ms ease-out,
+            background-color 150ms ease-out;
     }
 
     /* Sidebar items during show animation — matches sidebar */
     .sidebar-container.showing .sidebar-item {
-        transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 360ms ease-out,
+            background-color 150ms ease-out;
     }
 
     /* Icon rotation for expanded states */

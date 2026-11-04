@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Untuk development, pakai base URL local:
-const localBaseUrl = 'http://127.0.0.1:8000/api';
+const localBaseUrl = '/api';
 
 // Untuk production, pakai base URL production:
 const productionBaseUrl = 'https://sendpick.isslab.web.id/api';
