@@ -472,23 +472,21 @@ function DeliveryOrderTable({
 
                 {/* Search and Filters Section */}
                 <div className='space-y-3'>
-                    {/* Search Bar */}
-                    <div className='group relative w-full'>
-                        <span className='pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400'>
-                            <SearchIcon className='h-4 w-4' />
-                        </span>
-                        <input
-                            type='text'
-                            value={searchTerm}
-                            onChange={(event) => onSearchChange(event.target.value)}
-                            placeholder='Cari DO, manifest, driver...'
-                            className='w-full rounded-2xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-sm text-slate-600 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20'
-                        />
-                    </div>
-
-                    {/* Filters and Add Button Row */}
-                    <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
-                        <div className='flex flex-col gap-2 sm:flex-row sm:gap-3'>
+                    {/* Search, Filters, and Action Row */}
+                    <div className='flex flex-col gap-3 lg:flex-row lg:items-center'>
+                        <div className='group relative w-full lg:flex-1'>
+                            <span className='pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400'>
+                                <SearchIcon className='h-4 w-4' />
+                            </span>
+                            <input
+                                type='text'
+                                value={searchTerm}
+                                onChange={(event) => onSearchChange(event.target.value)}
+                                placeholder='Cari DO, manifest, driver...'
+                                className='w-full rounded-2xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-sm text-slate-600 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20'
+                            />
+                        </div>
+                        <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3'>
                             <FilterDropdown
                                 value={statusFilter}
                                 onChange={onStatusChange}
@@ -507,11 +505,6 @@ function DeliveryOrderTable({
                                 options={alertFilterOptions}
                                 widthClass='w-full sm:w-auto sm:min-w-[140px]'
                             />
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className='flex flex-col sm:flex-row gap-2'>
-                            {/* Add Button */}
                             <button
                                 type='button'
                                 onClick={onAddNew}

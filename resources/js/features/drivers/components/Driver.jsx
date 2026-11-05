@@ -689,16 +689,6 @@ function DriverTable({
                         <h2 className='text-lg font-semibold text-slate-900'>Daftar Driver</h2>
                         <p className='text-sm text-slate-400'>Kontrol aktivitas dan kinerja driver harian</p>
                     </div>
-                    <div className='flex justify-end'>
-                        <button
-                            type='button'
-                            onClick={onAdd}
-                            className='inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
-                        >
-                            <HiPlus className='h-4 w-4' />
-                            Tambah Driver
-                        </button>
-                    </div>
                 </div>
                 {/* Search & Filter Section */}
                 <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
@@ -727,6 +717,14 @@ function DriverTable({
                         options={driverStatusOptions}
                         widthClass='w-full sm:w-48'
                     />
+                    <button
+                        type='button'
+                        onClick={onAdd}
+                        className='inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto'
+                    >
+                        <HiPlus className='h-4 w-4' />
+                        Tambah Driver
+                    </button>
                 </div>
             </div>
             <div className='mt-6 overflow-x-auto'>

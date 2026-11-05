@@ -69,9 +69,9 @@ export default function LoginForm() {
         <>
             {/* Welcome Back Section */}
             <div className="login-welcome-back">
-                <h2 className="login-form-title">Welcome Back!</h2>
+                <h2 className="login-form-title">Selamat Datang Kembali!</h2>
                 <p className="login-form-subtitle">
-                    Please enter your credentials to access your account.
+                    Masukkan email dan password Anda untuk mengakses akun.
                 </p>
             </div>
 
@@ -123,7 +123,7 @@ export default function LoginForm() {
                                 setDataForm({ ...dataForm, password: e.target.value })
                             }
                             className="login-input"
-                            placeholder="Enter your password"
+                        placeholder="Masukkan password Anda"
                         />
                         <button
                             type="button"
@@ -161,18 +161,18 @@ export default function LoginForm() {
                                     fill="none"
                                 />
                             </svg>
-                            Processing...
+                            Memproses...
                         </span>
                     ) : (
-                        'Login Now'
+                        'Masuk Sekarang'
                     )}
                 </button>
 
                 {/* Forgot Password Link */}
                 <div className="login-forgot-password">
-                    <span className="login-forgot-text">Forget password</span>
+                    <span className="login-forgot-text">Lupa password?</span>
                     <a href="/auth/forgot-password" className="login-forgot-link">
-                        Click here
+                        Klik di sini
                     </a>
                 </div>
             </form>

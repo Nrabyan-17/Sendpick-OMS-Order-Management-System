@@ -136,7 +136,7 @@ export default function ForgotPasswordForm() {
                         <div className="fp-icon-wrapper">
                             <Mail className="fp-mail-icon" />
                         </div>
-                        <h2 className="fp-title">Forgot Password?</h2>
+                        <h2 className="fp-title">Lupa Password?</h2>
                         <p className="fp-subtitle">
                             Masukkan email akun Anda untuk memulai proses reset password.
                         </p>
@@ -153,7 +153,7 @@ export default function ForgotPasswordForm() {
 
                     <form className="fp-form" onSubmit={handleVerifyEmail}>
                         <div className="fp-field">
-                            <label htmlFor="fp-email" className="fp-label">Email Address</label>
+                            <label htmlFor="fp-email" className="fp-label">Alamat Email</label>
                             <input
                                 id="fp-email"
                                 name="email"

@@ -634,7 +634,7 @@ function ManifestTable({
                     <p className='text-sm text-slate-400'>Pantau status packing, loading, dan release manifest.</p>
                 </div>
                 <div className='flex w-full flex-col gap-3 md:w-auto'>
-                    {/* Search and Filters Row */}
+                    {/* Search, Filters, and Action Row */}
                     <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
                         <div className='group relative min-w-[240px] flex-1'>
                             <span className='pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400'>
@@ -661,18 +661,15 @@ function ManifestTable({
                                 options={hubFilterOptions}
                                 widthClass='w-full sm:w-44'
                             />
+                            <button
+                                type='button'
+                                onClick={onAddManifest}
+                                className='inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 sm:w-auto'
+                            >
+                                <PlusIcon className='h-4 w-4' />
+                                Tambah Manifest
+                            </button>
                         </div>
-                    </div>
-                    {/* Action Buttons Row */}
-                    <div className='flex flex-col gap-2 sm:flex-row sm:justify-end'>
-                        <button
-                            type='button'
-                            onClick={onAddManifest}
-                            className='inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 sm:w-auto'
-                        >
-                            <PlusIcon className='h-4 w-4' />
-                            Tambah Manifest
-                        </button>
                     </div>
                 </div>
             </div>
