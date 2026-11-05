@@ -44,9 +44,19 @@ export default function LoginForm() {
 
             // Handle error response
             if (err.response?.data?.errors?.email) {
-                setError(err.response.data.errors.email[0]);
+                const emailError = err.response.data.errors.email[0];
+                if (emailError === 'Kredensial yang diberikan tidak valid.' || emailError === 'These credentials do not match our records.') {
+                    setError('Email atau password yang diinputkan salah');
+                } else {
+                    setError(emailError);
+                }
             } else if (err.response?.data?.message) {
-                setError(err.response.data.message);
+                const message = err.response.data.message;
+                if (message === 'Kredensial yang diberikan tidak valid.' || message === 'These credentials do not match our records.') {
+                    setError('Email atau password yang diinputkan salah');
+                } else {
+                    setError(message);
+                }
             } else {
                 setError('Terjadi kesalahan. Silakan coba lagi.');
             }

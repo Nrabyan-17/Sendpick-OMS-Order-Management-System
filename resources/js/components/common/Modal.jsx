@@ -113,6 +113,7 @@ const Modal = ({
 
     const modalContent = (
         <div 
+            className="no-scrollbar"
             style={{ 
                 position: 'fixed',
                 top: 0,
@@ -125,6 +126,8 @@ const Modal = ({
                 justifyContent: 'center',
                 padding: '15px',
                 overflowY: 'auto',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
                 backgroundColor: isAnimating ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0)',
                 transition: 'background-color 0.35s ease-in-out'
             }}
@@ -193,10 +196,12 @@ const Modal = ({
                 
                 {/* Content - SIMPLIFIED */}
                 <div 
-                    className="bg-white"
+                    className="bg-white no-scrollbar"
                     style={{
                         flex: 1,
                         overflowY: 'auto',
+                        scrollbarWidth: 'none',
+                        msOverflowStyle: 'none',
                         padding: '24px',
                     }}
                 >

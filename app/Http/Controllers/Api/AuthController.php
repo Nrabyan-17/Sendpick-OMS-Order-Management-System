@@ -109,7 +109,7 @@ class AuthController extends Controller
 
         // Jika kredensial salah (email tidak ditemukan ATAU password salah)
         throw ValidationException::withMessages([
-            'email' => ['Kredensial yang diberikan tidak valid.'],
+            'email' => ['Email atau password yang diinputkan salah'],
         ]);
     }
 

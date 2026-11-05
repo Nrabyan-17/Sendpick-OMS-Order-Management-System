@@ -330,22 +330,9 @@ function CustomerTable({
     return (
         <section className='rounded-3xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm'>
             <div className='flex flex-col gap-4'>
-                <div className='flex flex-col gap-2 sm:gap-0 sm:flex-row sm:items-center sm:justify-between'>
-                    <div>
-                        <h2 className='text-lg font-semibold text-slate-900'>Daftar Pelanggan</h2>
-                        <p className='text-sm text-slate-400'>Kelola kontak pelanggan dan histori transaksi</p>
-                    </div>
-                    {/* Tombol tambah di mobile dipindah ke atas */}
-                    <button
-                        type='button'
-                        onClick={onAdd}
-                        className='group relative flex-shrink-0 flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/40 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:px-5'
-                    >
-                        <HiPlus className='h-5 w-5 transition-transform group-hover:rotate-90' />
-                        {/* Tampilkan full text pada md ke atas, singkat pada mobile */}
-                        <span className='hidden md:inline'>Tambah Pelanggan</span>
-                        <span className='inline md:hidden'>Tambah</span>
-                    </button>
+                <div>
+                    <h2 className='text-lg font-semibold text-slate-900'>Daftar Pelanggan</h2>
+                    <p className='text-sm text-slate-400'>Kelola kontak pelanggan dan histori transaksi</p>
                 </div>
 
                 {/* Controls section - search dan filter */}
@@ -374,6 +361,14 @@ function CustomerTable({
                         options={customerStatusOptions}
                         widthClass='w-full sm:w-48'
                     />
+                    <button
+                        type='button'
+                        onClick={onAdd}
+                        className='inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 whitespace-nowrap'
+                    >
+                        <HiPlus className='h-4 w-4' />
+                        Tambah Pelanggan
+                    </button>
                 </div>
             </div>
             <div className='mt-4 sm:mt-6 overflow-x-auto'>

@@ -668,7 +668,10 @@ const DeliveryOrderModal = ({
         >
             <form onSubmit={handleSubmit} className="flex flex-col h-full overflow-hidden">
                 {/* Scrollable form fields dengan desain yang lebih menarik */}
-                <div className="flex-1 space-y-6 overflow-y-auto pr-2 custom-scrollbar max-h-[60vh]">
+                <div 
+                    className="flex-1 space-y-6 overflow-y-auto custom-scrollbar no-scrollbar max-h-[60vh]"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
                     {getCurrentFields().map((field, index) => {
                         const staggerClass = `field-stagger-${Math.min(index + 1, 8)}`;
                         return (

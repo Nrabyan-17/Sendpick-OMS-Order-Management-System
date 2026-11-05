@@ -668,7 +668,10 @@ const EditModal = ({
                         )}
 
                         {/* Scrollable form fields dengan desain yang lebih menarik */}
-                        <div className={`flex-1 ${hideContentScrollbar ? 'space-y-4 overflow-hidden' : 'space-y-6 overflow-y-auto pr-2 custom-scrollbar max-h-[60vh]'}`}>
+                        <div 
+                            className={`flex-1 ${hideContentScrollbar ? 'space-y-4 overflow-hidden' : 'space-y-6 overflow-y-auto custom-scrollbar no-scrollbar max-h-[60vh]'}`}
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        >
                             {fields.map((field, index) => {
                                 const fieldKey = field.key || field.name;
 

@@ -125,7 +125,10 @@ export default function InvoiceDetailModal({ isOpen, onClose, invoice }) {
         >
             <div className="flex flex-col h-full">
                 {/* Content */}
-                <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                <div 
+                    className="flex-1 overflow-y-auto custom-scrollbar no-scrollbar"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
                     {/* Invoice Header Info with Status Badge */}
                     <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2">
                         <div className="space-y-4">

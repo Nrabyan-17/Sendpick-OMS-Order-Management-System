@@ -268,7 +268,10 @@ const MapPickerModal = ({
 
                         {/* Search Results Dropdown */}
                         {searchResults.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-slate-200 z-10 max-h-48 overflow-y-auto">
+                            <div 
+                                className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-slate-200 z-10 max-h-48 overflow-y-auto no-scrollbar"
+                                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            >
                                 {searchResults.map((result, index) => (
                                     <button
                                         key={index}

@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Truck, Check, Package, AlertTriangle, Search, Plus, Pencil, Trash2 } from 'lucide-react';
 import FilterDropdown from '../../../components/common/FilterDropdown';
 import EditModal from '../../../components/common/EditModal';
@@ -513,7 +513,7 @@ export default function VehicleListContent({ showPopup = false, setShowPopup = (
                         })}
                     </div>
                     <div className='flex flex-col gap-3'>
-                        {/* Search and Filter Row */}
+                        {/* Search, Filter, and Action Row */}
                         <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
                             <div className='group relative min-w-[260px] flex-1'>
                                 <span className='pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400'>
@@ -539,13 +539,10 @@ export default function VehicleListContent({ showPopup = false, setShowPopup = (
                                 options={driverFilterOptions}
                                 className="w-full sm:w-48"
                             />
-                        </div>
-                        {/* Action Button Row */}
-                        <div className='flex justify-end'>
                             <button
                                 type='button'
                                 onClick={handleAdd}
-                                className='inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto'
+                                className='inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 whitespace-nowrap'
                             >
                                 <PlusIcon className='h-4 w-4' />
                                 Tambah Kendaraan
