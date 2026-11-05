@@ -115,7 +115,7 @@ const navigationSections = [
     {
         heading: 'Main',
         items: [
-            { label: 'Home', icon: navigationIcons.home, view: 'home' },
+            { label: 'Dashboard', icon: navigationIcons.home, view: 'home' },
         ],
     },
     {

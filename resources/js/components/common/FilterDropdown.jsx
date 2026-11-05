@@ -127,8 +127,20 @@ export default function FilterDropdown({
                                 )}
                                 onClick={() => handleSelect(option)}
                             >
-                                <span className={classNames('flex h-2 w-2 rounded-full', isActive ? 'bg-indigo-500' : 'bg-slate-300')} />
+                                <span className={classNames('flex h-2 w-2 shrink-0 rounded-full', isActive ? 'bg-indigo-500' : 'bg-slate-300')} />
                                 <span className='truncate'>{option.label}</span>
+                                {isActive ? (
+                                    <svg
+                                        viewBox='0 0 24 24'
+                                        fill='none'
+                                        stroke='currentColor'
+                                        strokeWidth='2.5'
+                                        className='ml-auto h-4 w-4 shrink-0 text-indigo-600'
+                                        aria-hidden='true'
+                                    >
+                                        <path d='m5 12 4 4L19 6' strokeLinecap='round' strokeLinejoin='round' />
+                                    </svg>
+                                ) : null}
                             </button>
                         );
                     })}
