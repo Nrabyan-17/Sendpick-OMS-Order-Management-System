@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Ban, Play, Search, Download, Plus, ChevronDown, Pencil, Trash2, Eye, ClipboardList, CheckCircle2, Clock, Printer } from 'lucide-react';
 import FilterDropdown from '../../../components/common/FilterDropdown';
 import EditModal from '../../../components/common/EditModal';
@@ -1017,7 +1017,7 @@ export default function ManifestContent() {
         if (hasFTL) {
             return {
                 valid: false,
-                error: '⚠️ Tidak bisa menambah Job Order lagi. FTL bersifat eksklusif (1 item saja).'
+                error: 'Tidak bisa menambah Job Order lagi. FTL bersifat eksklusif (1 item saja).'
             };
         }
 
@@ -1025,7 +1025,7 @@ export default function ManifestContent() {
         if (hasLTL && newServiceType === 'FTL') {
             return {
                 valid: false,
-                error: '⚠️ Tidak bisa menggabungkan FTL dengan LTL dalam satu Manifest.'
+                error: 'Tidak bisa menggabungkan FTL dengan LTL dalam satu Manifest.'
             };
         }
 
@@ -1033,7 +1033,7 @@ export default function ManifestContent() {
         if (newServiceType === 'FTL' && currentSelection.length > 0) {
             return {
                 valid: false,
-                error: '⚠️ FTL tidak bisa digabung dengan Job Order lain. FTL bersifat eksklusif.'
+                error: 'FTL tidak bisa digabung dengan Job Order lain. FTL bersifat eksklusif.'
             };
         }
 
@@ -1187,7 +1187,7 @@ export default function ManifestContent() {
                 console.log(`⚠️ getServiceType(${jobOrderId}): Job Order tidak ditemukan`);
                 return null;
             },
-            description: '💡 FTL = Eksklusif (1 item). LTL = Multi-select (hanya sesama LTL).'
+            description: 'FTL = Eksklusif (1 item). LTL = Multi-select (hanya sesama LTL).'
         },
         // ✅ UPDATED: Hide Customer field for LTL mode (prevents confusion with multi-customer)
         {
@@ -1207,7 +1207,7 @@ export default function ManifestContent() {
             type: 'text',
             required: false,
             readOnly: true,
-            description: '✨ Rute dihitung otomatis berdasarkan Job Order yang dipilih.'
+            description: 'Rute dihitung otomatis berdasarkan Job Order yang dipilih.'
         },
         { name: 'shipmentDate', label: 'Shipment Date', type: 'date', required: true },
         // ✅ RENAMED: 'Total Packages' → 'Total Koli' for clarity (matches physical packages count)

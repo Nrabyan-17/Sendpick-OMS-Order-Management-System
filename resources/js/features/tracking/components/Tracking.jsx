@@ -328,52 +328,30 @@ export default function TrackingContent() {
 
     return (
         <div className='relative z-0 flex flex-col gap-8'>
-            {/* ─── Hero Header ─── */}
-            <header className='relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 px-8 py-8 shadow-lg'>
-                {/* Decorative bg circles */}
-                <div className='pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/5' />
-                <div className='pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-white/5' />
-
-                <div className='relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
-                    <div className='space-y-1'>
-                        <div className='flex items-center gap-3'>
-                            <h1 className='text-2xl font-bold text-white'>Real-Time Tracking</h1>
-                            <span className='inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm'>
-                                <span className='relative flex h-2 w-2'>
-                                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
-                                    <span className='relative inline-flex h-2 w-2 rounded-full bg-emerald-400' />
-                                </span>
-                                Live
+            {/* ─── Header ─── */}
+            <header className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
+                <div>
+                    <div className='flex items-center gap-3'>
+                        <h1 className='text-2xl font-semibold text-slate-900'>Real-Time Tracking</h1>
+                        <span className='inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-semibold text-emerald-700'>
+                            <span className='relative flex h-2 w-2'>
+                                <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
+                                <span className='relative inline-flex h-2 w-2 rounded-full bg-emerald-500' />
                             </span>
-                        </div>
-                        <p className='text-sm text-indigo-200'>Monitor posisi driver & kendaraan secara real-time</p>
+                            Live
+                        </span>
                     </div>
+                    <p className='mt-2 text-sm text-slate-500'>Monitor posisi driver & kendaraan secara real-time</p>
+                </div>
 
-                    {/* Quick stats in header */}
-                    <div className='flex items-center gap-6'>
-                        <div className='text-center'>
-                            <p className='text-2xl font-bold text-white'>2</p>
-                            <p className='text-xs text-indigo-200'>Aktif</p>
-                        </div>
-                        <div className='h-8 w-px bg-white/20' />
-                        <div className='text-center'>
-                            <p className='text-2xl font-bold text-white'>1</p>
-                            <p className='text-xs text-indigo-200'>Selesai</p>
-                        </div>
-                        <div className='h-8 w-px bg-white/20' />
-                        <div className='text-center'>
-                            <p className='text-2xl font-bold text-emerald-300'>0</p>
-                            <p className='text-xs text-indigo-200'>Delay</p>
-                        </div>
-
-                        <button
-                            type='button'
-                            className='ml-2 inline-flex items-center gap-2 rounded-2xl bg-white/15 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/25'
-                        >
-                            <RefreshCw className='h-4 w-4' />
-                            Refresh
-                        </button>
-                    </div>
+                <div className='flex items-center gap-3'>
+                    <button
+                        type='button'
+                        className='inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-600 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600'
+                    >
+                        <RefreshCw className='h-4 w-4' />
+                        Refresh
+                    </button>
                 </div>
             </header>
 

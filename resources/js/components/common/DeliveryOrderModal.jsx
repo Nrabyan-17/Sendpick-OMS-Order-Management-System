@@ -462,13 +462,13 @@ const DeliveryOrderModal = ({
 
                 {description && (
                     <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-indigo-950/25 dark:to-blue-950/25 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-900/50">
-                        ℹ️ {description}
+                        {description}
                     </p>
                 )}
 
                 {help && (
                     <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900/40 dark:to-blue-950/20 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">
-                        💡 {help}
+                        {help}
                     </p>
                 )}
             </div>
@@ -519,7 +519,7 @@ const DeliveryOrderModal = ({
 
                 fields.push({
                     name: 'job_order_summary',
-                    label: '📋 Summary Barang (Verifikasi)',
+                    label: 'Summary Barang (Verifikasi)',
                     type: 'readonly_summary',
                     summaryData: {
                         customer: customerName,
@@ -539,15 +539,15 @@ const DeliveryOrderModal = ({
         if (formData.source_type === 'MF' && formData.source_id) {
             fields.push({
                 name: 'selected_job_order_id',
-                label: '📦 Pilih Muatan / Job Order',
+                label: 'Pilih Muatan / Job Order',
                 type: 'select',
                 required: true,
                 options: manifestJobOrders,
                 description: isFetchingManifestJOs
-                    ? '⏳ Memuat daftar muatan...'
+                    ? 'Memuat daftar muatan...'
                     : manifestJobOrders.length > 0
-                        ? '⚠️ WAJIB dipilih untuk LTL! 1 Manifest bisa jadi beberapa Surat Jalan berdasarkan tujuan/customer.'
-                        : '❌ Manifest ini tidak memiliki Job Order',
+                        ? 'WAJIB dipilih untuk LTL! 1 Manifest bisa jadi beberapa Surat Jalan berdasarkan tujuan/customer.'
+                        : 'Manifest ini tidak memiliki Job Order',
                 help: 'Satu Manifest LTL bisa memiliki beberapa muatan dengan tujuan berbeda. Pilih muatan spesifik untuk Surat Jalan ini.'
             });
         }
@@ -626,7 +626,7 @@ const DeliveryOrderModal = ({
             disabled: hasSourceSelected, // ✅ Always disabled when source is selected
             options: [{ value: '', label: '-- Pilih Assign Driver --' }, ...drivers],
             description: hasSourceSelected
-                ? `🔒 ${getDriverDisplayName()} - Otomatis dari ${isManifestSource ? 'Manifest' : 'Assignment Job Order'}`
+                ? `${getDriverDisplayName()} - Otomatis dari ${isManifestSource ? 'Manifest' : 'Assignment Job Order'}`
                 : 'Pilih sumber terlebih dahulu'
         });
 
@@ -638,7 +638,7 @@ const DeliveryOrderModal = ({
             disabled: hasSourceSelected, // ✅ Always disabled when source is selected
             options: [{ value: '', label: '-- Pilih Assign Kendaraan --' }, ...vehicles],
             description: hasSourceSelected
-                ? `🔒 ${getVehicleDisplayName()} - Otomatis dari ${isManifestSource ? 'Manifest' : 'Assignment Job Order'}`
+                ? `${getVehicleDisplayName()} - Otomatis dari ${isManifestSource ? 'Manifest' : 'Assignment Job Order'}`
                 : 'Pilih sumber terlebih dahulu'
         });
 
@@ -716,7 +716,7 @@ const DeliveryOrderModal = ({
                             </svg>
                         )}
                         <span className="relative z-10">
-                            {isLoading ? 'Menyimpan...' : '✨ Simpan Delivery Order'}
+                            {isLoading ? 'Menyimpan...' : 'Simpan Delivery Order'}
                         </span>
                     </button>
                 </div>

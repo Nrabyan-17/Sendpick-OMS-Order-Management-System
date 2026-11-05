@@ -689,11 +689,11 @@ export default function ReportContent() {
     }, [selectedPeriod]);
 
     return (
-        <div className='flex flex-col gap-5'>
-            <header className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between -mt-2'>
+        <div className='flex flex-col gap-8'>
+            <header className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
                 <div>
                     <h1 className='text-2xl font-semibold text-slate-900'>Reports & Exports</h1>
-                    <p className='text-sm text-slate-500'>Analytics overview dan export data laporan operasional</p>
+                    <p className='mt-2 text-sm text-slate-500'>Analytics overview dan export data laporan operasional</p>
                 </div>
 
                 <div className='flex items-center gap-3'>
@@ -707,7 +707,7 @@ export default function ReportContent() {
                     <button
                         type='button'
                         onClick={fetchReportData}
-                        className='inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-indigo-200 hover:text-indigo-600'
+                        className='inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-600 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600'
                     >
                         <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
                         Refresh

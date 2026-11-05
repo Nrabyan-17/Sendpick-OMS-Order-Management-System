@@ -321,8 +321,8 @@ const MapPickerModal = ({
                 <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-slate-50">
                     <p className="text-sm text-slate-500">
                         {position
-                            ? `📍 Lokasi dipilih: ${position.lat.toFixed(6)}, ${position.lng.toFixed(6)}`
-                            : '⚠️ Klik di peta untuk memilih lokasi'
+                            ? `Lokasi dipilih: ${position.lat.toFixed(6)}, ${position.lng.toFixed(6)}`
+                            : 'Klik di peta untuk memilih lokasi'
                         }
                     </p>
                     <div className="flex gap-3">

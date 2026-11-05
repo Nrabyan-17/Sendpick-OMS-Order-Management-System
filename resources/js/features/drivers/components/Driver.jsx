@@ -427,9 +427,9 @@ const viewConfigs = {
         getContent: () => <DeliveryOrderContent />,
     },
     invoices: {
-        // title: 'Invoices',
-        // subtitle: 'Kelola tagihan, pembayaran, dan status penagihan',
-        // actionButton: { label: 'Buat Invoice', icon: navigationIcons.receipt },
+        title: 'Invoices',
+        subtitle: 'Kelola tagihan, pembayaran, dan status penagihan',
+        actionButton: null,
         getContent: () => <InvoiceContent />,
     },
     vehicleList: {
@@ -784,72 +784,7 @@ function DriverTable({
 }
 
 
-function DriverActivityTimeline() {
-    return (
-        <section className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
-            <div className='flex items-center justify-between'>
-                <div>
-                    <h3 className='text-base font-semibold text-slate-900'>Aktivitas Terbaru</h3>
-                    <p className='text-sm text-slate-400'>Ringkasan aktivitas operasional dalam 24 jam terakhir</p>
-                </div>
-                <button
-                    type='button'
-                    className='text-xs font-semibold text-indigo-600 transition hover:text-indigo-500'
-                >
-                    Lihat Semua
-                </button>
-            </div>
-            <ol className='mt-6 space-y-4 text-sm text-slate-600'>
-                {driverActivities.map((activity) => (
-                    <li key={activity.id} className='flex gap-3'>
-                        <span className='mt-1 h-2 w-2 rounded-full bg-indigo-500' />
-                        <div className='flex-1 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-sm'>
-                            <div className='flex items-center justify-between'>
-                                <p className='font-medium text-slate-800'>{activity.title}</p>
-                                <span className='text-xs text-slate-400'>{activity.timestamp}</span>
-                            </div>
-                            <p className='mt-1 text-xs text-slate-500'>{activity.description}</p>
-                        </div>
-                    </li>
-                ))}
-            </ol>
-        </section>
-    );
-}
 
-function DriverLeaderboard() {
-    return (
-        <section className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
-            <h3 className='text-base font-semibold text-slate-900'>Top Performer</h3>
-            <p className='text-sm text-slate-400'>Driver dengan penyelesaian order tertinggi minggu ini</p>
-            <div className='mt-6 space-y-3'>
-                {driverLeaderboard.map((entry, index) => (
-                    <article
-                        key={entry.id}
-                        className='flex items-center justify-between rounded-2xl border border-slate-100 px-4 py-4 transition hover:border-slate-200'
-                    >
-                        <div className='flex items-center gap-3'>
-                            <span className='flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-sm font-semibold text-indigo-600'>
-                                #{index + 1}
-                            </span>
-                            <div>
-                                <p className='text-sm font-semibold text-slate-800'>{entry.name}</p>
-                                <p className='text-xs text-slate-400'>{entry.area}</p>
-                            </div>
-                        </div>
-                        <div className='flex items-center gap-4 text-sm font-semibold text-slate-700'>
-                            <span>{entry.completed} order</span>
-                            <span className='inline-flex items-center gap-1 text-amber-500'>
-                                <StarIcon className='h-3.5 w-3.5' />
-                                {entry.rating.toFixed(1)}
-                            </span>
-                        </div>
-                    </article>
-                ))}
-            </div>
-        </section>
-    );
-}
 
 function DriverManagementContent() {
 
@@ -986,31 +921,25 @@ function DriverManagementContent() {
                     <DriverSummaryCard key={card.title} card={card} />
                 ))}
             </section>
-            <section className='grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]'>
-                <DriverTable
-                    drivers={paginatedDrivers}
-                    searchTerm={searchTerm}
-                    onSearchChange={setSearchTerm}
-                    shiftFilter={shiftFilter}
-                    onShiftChange={setShiftFilter}
-                    statusFilter={statusFilter}
-                    onStatusChange={setStatusFilter}
-                    onAdd={handleAddDriver}
-                    onEdit={handleEditDriver}
-                    onDelete={handleDeleteDriver}
-                    loading={loading}
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    totalItems={totalItems}
-                    startIndex={startIndex}
-                    endIndex={endIndex}
-                    onPageChange={handlePageChange}
-                />
-                <div className='space-y-6'>
-                    <DriverActivityTimeline />
-                    <DriverLeaderboard />
-                </div>
-            </section>
+            <DriverTable
+                drivers={paginatedDrivers}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                shiftFilter={shiftFilter}
+                onShiftChange={setShiftFilter}
+                statusFilter={statusFilter}
+                onStatusChange={setStatusFilter}
+                onAdd={handleAddDriver}
+                onEdit={handleEditDriver}
+                onDelete={handleDeleteDriver}
+                loading={loading}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                totalItems={totalItems}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                onPageChange={handlePageChange}
+            />
 
             {/* Edit Modal */}
             <EditModal
@@ -1737,22 +1666,24 @@ function DashboardLayout() {
                 </header>
                 <main className='flex-1 bg-white'>
                     <div className='flex w-full flex-col gap-8 px-6 py-8 lg:px-8 2xl:px-10'>
-                        <div className='flex items-start justify-between'>
-                            <div>
-                                <h1 className='text-2xl font-semibold text-slate-900'>{activeConfig.title}</h1>
-                                <p className='mt-2 text-sm text-slate-500'>{activeConfig.subtitle}</p>
+                        {activeConfig.title ? (
+                            <div className='flex items-start justify-between'>
+                                <div>
+                                    <h1 className='text-2xl font-semibold text-slate-900'>{activeConfig.title}</h1>
+                                    <p className='mt-2 text-sm text-slate-500'>{activeConfig.subtitle}</p>
+                                </div>
+                                {actionButton ? (
+                                    <button
+                                        type='button'
+                                        onClick={handleActionClick}
+                                        className='inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
+                                    >
+                                        {ActionIcon ? ActionIcon('h-4 w-4') : null}
+                                        {actionButton.label}
+                                    </button>
+                                ) : null}
                             </div>
-                            {actionButton ? (
-                                <button
-                                    type='button'
-                                    onClick={handleActionClick}
-                                    className='inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white'
-                                >
-                                    {ActionIcon ? ActionIcon('h-4 w-4') : null}
-                                    {actionButton.label}
-                                </button>
-                            ) : null}
-                        </div>
+                        ) : null}
                         {mainContent}
                     </div>
                 </main>

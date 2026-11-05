@@ -123,7 +123,7 @@ const DeleteConfirmModal = ({
                         disabled={isLoading}
                         className="flex-1 group relative px-6 py-3 rounded-xl border-2 border-slate-300 bg-white text-slate-700 font-semibold btn-interactive focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 disabled:opacity-50 disabled:hover:scale-100"
                     >
-                        <span className="relative z-10">✋ Batal</span>
+                        <span className="relative z-10">Batal</span>
                     </button>
 
                     <button
@@ -159,7 +159,7 @@ const DeleteConfirmModal = ({
                             </svg>
                         )}
                         <span className="relative z-10">
-                            {isLoading ? loadingLabel : `🗑️ ${confirmLabel}`}
+                            {isLoading ? loadingLabel : confirmLabel}
                         </span>
                     </button>
                 </div>

@@ -536,7 +536,7 @@ const InlineMapPicker = ({
                         {!internalPosition && (
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                 <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg border border-slate-200">
-                                    <p className="text-sm text-slate-600">👆 Klik di peta untuk memilih lokasi</p>
+                                    <p className="text-sm text-slate-600">Klik di peta untuk memilih lokasi</p>
                                 </div>
                             </div>
                         )}

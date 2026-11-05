@@ -619,22 +619,8 @@ export default function InvoiceContent() {
     };
 
     return (
-        <>
-            <div className="-mt-4 mb-6 flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold text-slate-900">Invoices</h1>
-                    <p className="text-sm text-slate-500">Kelola tagihan, pembayaran, dan status penagihan</p>
-                </div>
-                <button
-                    onClick={handleCreate}
-                    className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 hover:shadow-indigo-300"
-                >
-                    <HiOutlinePlus className="h-5 w-5" />
-                    Buat Invoice
-                </button>
-            </div>
-
-            <section className='grid grid-cols-4 gap-6'>
+        <div className='flex flex-col gap-8'>
+            <section className='grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4'>
                 {summaryCards.map((card) => (
                     <SummaryCard key={card.title} card={card} />
                 ))}
@@ -653,7 +639,7 @@ export default function InvoiceContent() {
                             className='w-full rounded-2xl border border-slate-200 bg-white py-2.5 pl-11 pr-4 text-sm text-slate-600 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20'
                         />
                     </div>
-                    <div className='flex flex-col gap-3 sm:flex-row'>
+                    <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
                         <FilterDropdown
                             value={statusFilter}
                             onChange={setStatusFilter}
@@ -666,6 +652,14 @@ export default function InvoiceContent() {
                             options={monthFilterOptions}
                             widthClass='min-w-[160px]'
                         />
+                        <button
+                            type='button'
+                            onClick={handleCreate}
+                            className='inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 whitespace-nowrap'
+                        >
+                            <HiOutlinePlus className='h-5 w-5' />
+                            Buat Invoice
+                        </button>
                     </div>
                 </div>
             </section>
@@ -714,6 +708,6 @@ export default function InvoiceContent() {
                 onClose={() => setIsDetailModalOpen(false)}
                 invoice={invoiceToView}
             />
-        </>
+        </div>
     );
 }

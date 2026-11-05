@@ -295,7 +295,7 @@ const EditModal = ({
                                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                                 </svg>
-                                                🔒 Mode FTL - Dropdown Terkunci (Hapus item untuk membuka)
+                                                Mode FTL - Dropdown Terkunci (Hapus item untuk membuka)
                                             </span>
                                         );
                                     } else if (firstServiceType === 'LTL') {
@@ -304,7 +304,7 @@ const EditModal = ({
                                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
                                                 </svg>
-                                                🔓 Mode LTL - Multi-Select Aktif (Hanya sesama LTL)
+                                                Mode LTL - Multi-Select Aktif (Hanya sesama LTL)
                                             </span>
                                         );
                                     }
@@ -317,7 +317,7 @@ const EditModal = ({
                             {/* ✅ Jika FTL terpilih, tampilkan dropdown disabled dengan pesan */}
                             {isDropdownDisabled ? (
                                 <div className="w-full rounded-xl border-2 px-4 py-3 text-sm font-medium bg-slate-100 text-slate-500 cursor-not-allowed border-slate-200 flex items-center justify-between">
-                                    <span>🔒 Dropdown terkunci (FTL bersifat eksklusif)</span>
+                                    <span>Dropdown terkunci (FTL bersifat eksklusif)</span>
                                     <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                     </svg>
@@ -731,13 +731,13 @@ const EditModal = ({
                                         {/* ✅ UPDATED: Support dynamic description (can be function) */}
                                         {field.description && (
                                             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-indigo-950/25 dark:to-blue-950/25 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-900/50">
-                                                ℹ️ {typeof field.description === 'function' ? field.description(formData) : field.description}
+                                                {typeof field.description === 'function' ? field.description(formData) : field.description}
                                             </p>
                                         )}
 
                                         {field.help && (
                                             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900/40 dark:to-blue-950/20 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">
-                                                💡 {field.help}
+                                                {field.help}
                                             </p>
                                         )}
                                     </div>
@@ -782,7 +782,7 @@ const EditModal = ({
                                     </svg>
                                 )}
                                 <span className="relative z-10">
-                                    {isLoading ? 'Menyimpan...' : '✨ Simpan Perubahan'}
+                                    {isLoading ? 'Menyimpan...' : 'Simpan Perubahan'}
                                 </span>
                             </button>
                         </div>
