@@ -1,8 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import {
     Truck, CheckCircle2, AlertTriangle, MapPin, User, Clock,
-    Search, RefreshCw, Radio, Navigation, Package, CircleDot,
-    Info, CircleCheck, TriangleAlert, Route,
+    Search, RefreshCw, Navigation, Package,
 } from 'lucide-react';
 import FilterDropdown from '../../../components/common/FilterDropdown';
 import LiveTrackingMap from './LiveTrackingMap';
@@ -107,20 +106,6 @@ const activeDeliveries = [
     },
 ];
 
-const liveEvents = [
-    { id: 1, time: '09:30', message: 'Budi Santoso memulai perjalanan ke Bandung.', type: 'info' },
-    { id: 2, time: '09:45', message: 'Siti Kurnia telah sampai di lokasi Pickup.', type: 'success' },
-    { id: 3, time: '10:00', message: 'Ahmad Subandi terjebak macet (Speed: 0 km/h selama 15 menit).', type: 'warning' },
-    { id: 4, time: '10:15', message: 'Rudi Hartono melewati checkpoint Bekasi Barat.', type: 'info' },
-];
-
-const timelineEvents = [
-    { time: '08:00', title: 'Berangkat', description: 'Driver memulai perjalanan dari Pool Jakarta.' },
-    { time: '10:00', title: 'Sampai Rest Area', description: 'Istirahat di Rest Area KM 57.' },
-    { time: '12:00', title: 'Melanjutkan Perjalanan', description: 'Kembali ke rute utama menuju tujuan.' },
-    { time: '14:00', title: 'Mendekati Tujuan', description: 'Estimasi tiba dalam 30 menit.' },
-];
-
 /* ──────────────────────────────────────────────
    SUB-COMPONENTS
    ────────────────────────────────────────────── */
@@ -203,105 +188,6 @@ function DeliveryCard({ delivery }) {
                 </div>
             </div>
         </article>
-    );
-}
-
-function LiveEventsTicker() {
-    const eventIcon = {
-        info: <Info className='h-3.5 w-3.5' />,
-        success: <CircleCheck className='h-3.5 w-3.5' />,
-        warning: <TriangleAlert className='h-3.5 w-3.5' />,
-    };
-
-    const eventDotColor = {
-        info: 'bg-sky-500',
-        success: 'bg-emerald-500',
-        warning: 'bg-amber-500',
-    };
-
-    const eventTextColor = {
-        info: 'text-slate-700',
-        success: 'text-emerald-700',
-        warning: 'text-amber-700',
-    };
-
-    const eventIconColor = {
-        info: 'text-sky-500',
-        success: 'text-emerald-500',
-        warning: 'text-amber-500',
-    };
-
-    return (
-        <div className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
-            <div className='flex items-center justify-between mb-5'>
-                <div className='flex items-center gap-2'>
-                    <Radio className='h-4 w-4 text-indigo-500' />
-                    <h4 className='text-sm font-semibold text-slate-800'>Live Updates</h4>
-                </div>
-                <span className='inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600'>
-                    <span className='relative flex h-2 w-2'>
-                        <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75' />
-                        <span className='relative inline-flex h-2 w-2 rounded-full bg-emerald-500' />
-                    </span>
-                    Live
-                </span>
-            </div>
-            <div className='space-y-4'>
-                {liveEvents.map((event, index) => (
-                    <div key={event.id} className='flex gap-3'>
-                        <div className='flex flex-col items-center'>
-                            <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${event.type === 'warning' ? 'bg-amber-50' : event.type === 'success' ? 'bg-emerald-50' : 'bg-sky-50'} ${eventIconColor[event.type]}`}>
-                                {eventIcon[event.type]}
-                            </div>
-                            {index < liveEvents.length - 1 && (
-                                <div className='mt-1 h-full w-px bg-slate-200' />
-                            )}
-                        </div>
-                        <div className='pb-4'>
-                            <span className='text-xs font-mono font-semibold text-slate-400'>{event.time}</span>
-                            <p className={`mt-0.5 text-xs font-medium leading-relaxed ${eventTextColor[event.type]}`}>
-                                {event.message}
-                            </p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function ActivityTimeline() {
-    return (
-        <div className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
-            <div className='flex items-center gap-2 mb-5'>
-                <Route className='h-4 w-4 text-indigo-500' />
-                <h4 className='text-sm font-semibold text-slate-800'>Riwayat Perjalanan</h4>
-            </div>
-            <div className='relative space-y-0 pl-1'>
-                {/* Vertical Line */}
-                <div className='absolute left-[11px] top-1 h-[calc(100%-24px)] w-0.5 bg-gradient-to-b from-indigo-400 via-indigo-300 to-slate-200' />
-
-                {timelineEvents.map((event, index) => (
-                    <div key={index} className='relative flex gap-4 pb-6 last:pb-0'>
-                        {/* Dot */}
-                        <div className={`relative z-10 mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${index === 0 ? 'border-indigo-500 bg-indigo-500' : 'border-indigo-300 bg-white'}`}>
-                            {index === 0 && <CircleDot className='h-3 w-3 text-white' />}
-                        </div>
-
-                        <div className='min-w-0'>
-                            <div className='flex items-center gap-2'>
-                                <span className='text-xs font-semibold text-indigo-600'>{event.time}</span>
-                                {index === 0 && (
-                                    <span className='rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-600'>Terkini</span>
-                                )}
-                            </div>
-                            <h5 className='mt-0.5 text-sm font-medium text-slate-900'>{event.title}</h5>
-                            <p className='mt-0.5 text-xs text-slate-500 leading-relaxed'>{event.description}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
     );
 }
 
@@ -388,9 +274,9 @@ export default function TrackingContent() {
             </section>
 
             {/* ─── Bottom 3-Column Grid ─── */}
-            <section className='relative z-0 grid grid-cols-1 items-start gap-6 lg:grid-cols-3'>
-                {/* Column 1: Active Deliveries */}
-                <div className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-1'>
+            <section className='relative z-0'>
+                {/* Active Deliveries */}
+                <div className='rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
                     <div className='flex items-center gap-2 mb-4'>
                         <Package className='h-4 w-4 text-indigo-500' />
                         <h3 className='text-sm font-semibold text-slate-800'>Active Deliveries</h3>
@@ -433,11 +319,6 @@ export default function TrackingContent() {
                     </div>
                 </div>
 
-                {/* Column 2: Live Updates */}
-                <LiveEventsTicker />
-
-                {/* Column 3: Activity Timeline */}
-                <ActivityTimeline />
             </section>
         </div>
     );
