@@ -636,7 +636,7 @@ export default function CustomerContent() {
     ];
 
     return (
-        <div className='space-y-4 p-4 sm:space-y-6 sm:p-6'>
+        <div className='space-y-4 sm:space-y-6'>
 
             <section className='grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-4'>
                 {summaryCards.map((card) => (
