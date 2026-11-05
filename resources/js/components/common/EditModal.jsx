@@ -208,14 +208,14 @@ const EditModal = ({
             onChange: (e) => handleChange(fieldKey, e.target.value),
             className: `
                 w-full rounded-xl border-2 px-4 py-3 text-sm font-medium transition-all duration-200
-                focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                focus:outline-none focus:ring-0 focus:border-slate-400
                 placeholder:text-slate-400
                 ${(typeof field.disabled === 'function' ? field.disabled(formData) : field.disabled) || (typeof field.readOnly === 'function' ? field.readOnly(formData) : field.readOnly)
                     ? 'bg-slate-100 text-slate-500 cursor-not-allowed border-slate-200'
                     : errors[fieldKey]
                         ? 'border-red-300 bg-red-50 text-red-900 focus:border-red-500 focus:ring-red-500'
                         : formData[fieldKey]
-                            ? 'border-green-300 bg-green-50/50 text-slate-900 focus:border-indigo-500'
+                            ? 'border-green-300 bg-green-50/50 text-slate-900 focus:border-slate-400'
                             : 'border-slate-300 bg-white text-slate-900 hover:border-slate-400 focus:bg-indigo-50/50'
                 }
             `,

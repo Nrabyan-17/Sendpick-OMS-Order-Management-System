@@ -228,7 +228,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                                 onChange={handleOrderSelect}
                                 required
                                 disabled={loadingSources}
-                                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-slate-400 focus:outline-none focus:ring-0"
                             >
                                 <option value="">{loadingSources ? 'Memuat...' : 'Pilih Order...'}</option>
                                 {availableSources.map(source => (
@@ -264,7 +264,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                             value={formData.date}
                             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                             required
-                            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-slate-400 focus:outline-none focus:ring-0"
                         />
                     </div>
                     <div>
@@ -277,7 +277,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                             onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
                             required
                             min={formData.date}
-                            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                            className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-slate-400 focus:outline-none focus:ring-0"
                         />
                     </div>
                 </div>
@@ -318,7 +318,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                                         onChange={(e) => handleItemChange(index, 'description', e.target.value)}
                                         placeholder="Deskripsi item..."
                                         required
-                                        className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                                        className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-slate-400 focus:outline-none focus:ring-0"
                                     />
                                 </div>
                                 <div className="flex-1 relative">
@@ -332,7 +332,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                                         disabled={hasPaidAmount}
                                         className={`w-full rounded-xl border px-4 py-2.5 text-sm focus:outline-none focus:ring-2 ${hasPaidAmount
                                             ? 'border-amber-200 bg-amber-50 text-amber-700 cursor-not-allowed'
-                                            : 'border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500/20'
+                                            : 'border-slate-200 text-slate-700 focus:border-slate-400 focus:ring-0'
                                             }`}
                                     />
                                     {hasPaidAmount && (
@@ -350,7 +350,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                                         disabled={hasPaidAmount}
                                         className={`w-full rounded-xl border px-4 py-2.5 text-sm focus:outline-none focus:ring-2 ${hasPaidAmount
                                             ? 'border-amber-200 bg-amber-50 text-amber-700 cursor-not-allowed'
-                                            : 'border-slate-200 text-slate-700 focus:border-indigo-500 focus:ring-indigo-500/20'
+                                            : 'border-slate-200 text-slate-700 focus:border-slate-400 focus:ring-0'
                                             }`}
                                     />
                                     {hasPaidAmount && (
@@ -382,7 +382,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                                 value={formData.notes}
                                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                                 rows="3"
-                                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm text-slate-700 focus:border-slate-400 focus:outline-none focus:ring-0"
                                 placeholder="Catatan tambahan untuk customer..."
                             ></textarea>
                         </div>
@@ -408,7 +408,7 @@ export default function InvoiceFormModal({ isOpen, onClose, onSubmit, initialDat
                                     disabled={hasPaidAmount}
                                     className={`w-20 rounded-lg border px-3 py-1.5 text-right text-sm focus:outline-none ${hasPaidAmount
                                         ? 'border-amber-200 bg-amber-50 text-amber-700 cursor-not-allowed'
-                                        : 'border-slate-200 text-slate-700 focus:border-indigo-500'
+                                        : 'border-slate-200 text-slate-700 focus:border-slate-400 focus:ring-0'
                                         }`}
                                 />
                             </div>

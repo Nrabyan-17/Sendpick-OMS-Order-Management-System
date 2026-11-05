@@ -77,7 +77,7 @@ export default function FilterDropdown({
                 aria-expanded={isOpen}
                 onClick={() => setIsOpen((previous) => !previous)}
                 className={classNames(
-                    'relative flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white py-2.5 pr-12 text-sm font-medium text-slate-600 transition-all duration-200 ease-out focus:outline-none focus-visible:border-indigo-400 focus-visible:bg-indigo-50/40 focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:shadow-lg focus-visible:shadow-indigo-100 disabled:cursor-not-allowed disabled:opacity-60',
+                    'relative flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white py-2.5 pr-12 text-sm font-medium text-slate-600 transition-all duration-200 ease-out focus:outline-none focus-visible:border-slate-300 focus-visible:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:shadow-none disabled:cursor-not-allowed disabled:opacity-60',
                     buttonPaddingLeft,
                     buttonClassName,
                 )}
@@ -120,7 +120,7 @@ export default function FilterDropdown({
                                 id={`dropdown-option-${option.value}`}
                                 aria-selected={isActive}
                                 className={classNames(
-                                    'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm dropdown-item-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
+                                    'flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm dropdown-item-hover focus:outline-none focus-visible:ring-0',
                                     isActive ? 'bg-indigo-50 text-indigo-600 shadow-sm' : 'text-slate-600 hover:bg-slate-100 hover:text-indigo-600',
                                     isOpen ? `animate-dropdown-item-fade stagger-${Math.min(index + 1, 6)}` : '',
                                     optionClassName,

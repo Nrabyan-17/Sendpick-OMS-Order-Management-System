@@ -143,7 +143,7 @@ const RecordPaymentModal = ({
                             onChange={handleChange}
                             className={`w-full rounded-xl border px-4 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2 ${errors.paymentDate
                                 ? 'border-red-300 focus:border-red-500 focus:ring-red-200'
-                                : 'border-slate-200 focus:border-indigo-500 focus:ring-indigo-200'
+                                : 'border-slate-200 focus:border-slate-400 focus:ring-0'
                                 }`}
                         />
                         {errors.paymentDate && (
@@ -166,7 +166,7 @@ const RecordPaymentModal = ({
                                 placeholder="0"
                                 className={`w-full rounded-xl border pl-10 pr-4 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2 ${errors.amount
                                     ? 'border-red-300 focus:border-red-500 focus:ring-red-200'
-                                    : 'border-slate-200 focus:border-indigo-500 focus:ring-indigo-200'
+                                    : 'border-slate-200 focus:border-slate-400 focus:ring-0'
                                     }`}
                             />
                         </div>
@@ -189,7 +189,7 @@ const RecordPaymentModal = ({
                             onChange={handleChange}
                             className={`w-full rounded-xl border px-4 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2 ${errors.paymentMethod
                                 ? 'border-red-300 focus:border-red-500 focus:ring-red-200'
-                                : 'border-slate-200 focus:border-indigo-500 focus:ring-indigo-200'
+                                : 'border-slate-200 focus:border-slate-400 focus:ring-0'
                                 }`}
                         >
                             <option value="transfer">Transfer Bank</option>
