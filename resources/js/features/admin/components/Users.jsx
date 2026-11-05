@@ -87,6 +87,26 @@ const getRoleKey = (roleName) => {
     return 'admin';
 };
 
+const formatLastLogin = (admin) => {
+    const lastLogin = admin?.last_login ?? admin?.last_login_at;
+    if (!lastLogin) {
+        return '-';
+    }
+
+    const parsedDate = new Date(lastLogin);
+    if (Number.isNaN(parsedDate.getTime())) {
+        return '-';
+    }
+
+    return parsedDate.toLocaleString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+};
+
 function SummaryCard({ card }) {
     return (
         <article className='flex items-center justify-between rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
@@ -156,13 +176,7 @@ function AdminRow({ admin, onEdit, onDelete, isSuperAdmin }) {
                 <StatusBadge status={admin.status} />
             </td>
             <td className='px-6 py-4 text-sm font-medium text-slate-600'>
-                {admin.last_login ? new Date(admin.last_login).toLocaleString('id-ID', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }) : '-'}
+                {formatLastLogin(admin)}
             </td>
             {isSuperAdmin && (
                 <td className='px-6 py-4'>
@@ -457,6 +471,14 @@ export default function AdminContent() {
             onlineToday: admins?.filter(a => a.last_login && new Date(a.last_login).toDateString() === today)?.length?.toString() ?? '0',
         }));
     }, [admins]);
+
+    useEffect(() => {
+        const refreshInterval = window.setInterval(() => {
+            refetch();
+        }, 60000);
+
+        return () => window.clearInterval(refreshInterval);
+    }, [refetch]);
 
     useEffect(() => {
         if (!filterEffectInitialized.current) {
