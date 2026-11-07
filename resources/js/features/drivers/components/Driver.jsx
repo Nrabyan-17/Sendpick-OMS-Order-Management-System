@@ -447,7 +447,7 @@ const viewConfigs = {
     vehicleHistory: {
         title: 'History & Recap Armada',
         subtitle: 'Tinjau histori operasional armada dan insight performa.',
-        actionButton: { label: 'Download Laporan', icon: navigationIcons.document },
+        actionButton: null,
         getContent: () => <VehicleHistoryContent />,
     },
     activeVehicles: {
